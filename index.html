@@ -883,6 +883,66 @@ body::selection{background:rgba(255,190,0,.32);color:#031427;}
 @media(max-width:520px){.floating-help{left:14px;right:14px;bottom:12px;justify-content:center}.app{padding-bottom:115px}.dni-row{flex-direction:column}.dni-actions{display:grid;grid-template-columns:1fr 1fr}.btn-manual,.btn-gd{width:100%;justify-content:center}.qopts{gap:8px}.qtxt{font-size:12px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
+
+/* ═══════════════════════════════════════════════════
+   AJUSTES PREMIUM ANTAPITE — v3.0
+   Restricciones Perú + interfaz flotante + emergencias compactas
+═══════════════════════════════════════════════════ */
+.bg-base{
+  height:570px;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255,190,0,.38), transparent 25%),
+    radial-gradient(circle at 86% 20%, rgba(0,198,224,.46), transparent 28%),
+    radial-gradient(circle at 52% 52%, rgba(0,224,150,.20), transparent 34%),
+    linear-gradient(145deg,#020711 0%,#041426 22%,#062b4a 45%,#03456e 62%,#007c97 78%,#f0b223 100%);
+}
+.bg-lines::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(120deg, transparent 0 48%, rgba(255,190,0,.16) 48.2% 48.7%, transparent 49%),
+    linear-gradient(60deg, transparent 0 57%, rgba(0,198,224,.14) 57.2% 57.8%, transparent 58%);
+  opacity:.85;
+}
+.bg-wrap::after{
+  content:'';position:absolute;left:0;right:0;top:380px;height:260px;
+  background:linear-gradient(180deg,transparent 0%,rgba(221,233,245,.15) 36%,#dde9f5 100%);
+}
+.hdr-logo{transform-style:preserve-3d;}
+.hdr-logo::after{content:'';position:absolute;inset:9px;border-radius:18px;border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 10px rgba(255,255,255,.18);}
+.field input#licencia,.field input#unidad{font-family:var(--fg);font-weight:800;letter-spacing:1.1px;text-transform:uppercase;}
+.field input#licencia:focus,.field input#unidad:focus{background:#fff;}
+.truth-panel{
+  display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;padding:18px;
+  border-radius:22px;background:linear-gradient(135deg,#031427,#07385f 55%,#0a7182);
+  color:#fff;border:1px solid rgba(0,198,224,.28);box-shadow:0 18px 42px rgba(2,13,26,.22);
+  position:relative;overflow:hidden;
+}
+.truth-panel::before{content:'';position:absolute;right:-40px;top:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,190,0,.32),transparent 68%);}
+.truth-icon{width:50px;height:50px;border-radius:18px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ffbe00,#ff8c00);box-shadow:0 10px 28px rgba(255,140,0,.32);font-size:26px;flex-shrink:0;}
+.truth-copy{position:relative;z-index:1}.truth-copy strong{display:block;font-family:var(--fg);font-size:14px;margin-bottom:6px;}.truth-copy span{display:block;font-size:12px;line-height:1.7;color:rgba(255,255,255,.78);}
+.q-head{background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-radius:22px;box-shadow:0 12px 30px rgba(2,13,26,.08);}
+.qi{margin-bottom:16px;background:rgba(255,255,255,.78);box-shadow:0 10px 28px rgba(2,13,26,.06);}
+.qi:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(2,13,26,.10);}
+.qtxt{background:linear-gradient(135deg,#ffffff,#edf9ff);box-shadow:inset 0 1px 0 rgba(255,255,255,.8);font-weight:700;}
+.qo{position:relative;overflow:hidden;font-size:14px;}
+.qo::after{content:'';position:absolute;inset:auto 12px 8px 12px;height:2px;border-radius:999px;background:transparent;transition:.22s;}
+.qo:has(input:checked)::after{background:linear-gradient(90deg,var(--accent),var(--gold));}
+.qo.no-s:has(input:checked)::after{background:linear-gradient(90deg,var(--danger),#ff8c00);}
+.emergency-card{background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(240,249,255,.98));}
+.emergency-note{display:flex;align-items:center;gap:8px;margin:-4px 0 14px;padding:10px 12px;border-radius:14px;background:#fff8e7;border:1px solid #ffe0a0;color:#7a5200;font-size:11.5px;font-weight:700;line-height:1.45;}
+.emergency-note i{font-size:17px;color:#ff8c00;}
+.emergency-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.emergency-chip{min-width:0;padding:12px 11px;border-radius:18px;flex-direction:row;justify-content:flex-start;text-align:left;gap:10px;transform-origin:center;}
+.emergency-chip .eic{font-size:23px;margin:0;width:38px;height:38px;border-radius:14px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.em-info span{display:block;font-size:9px;color:rgba(255,255,255,.68);text-transform:uppercase;letter-spacing:.7px;font-weight:800;line-height:1.25;}
+.em-info strong{display:block;font-family:var(--fg);font-size:14px;color:#fff;margin-top:2px;white-space:nowrap;}
+.emergency-chip:hover,.emergency-chip:focus,.emergency-chip.call-active{transform:translateY(-4px) scale(1.05);z-index:2;box-shadow:0 22px 48px rgba(2,13,26,.24),0 0 0 4px rgba(255,190,0,.14);outline:none;}
+.emergency-chip.call-active .em-info strong{font-size:18px;}
+@media(max-width:640px){
+  .truth-panel{padding:15px;border-radius:20px}.truth-icon{width:44px;height:44px;font-size:23px}.truth-copy strong{font-size:13px}.truth-copy span{font-size:11.5px}
+  .emergency-grid{grid-template-columns:1fr}.emergency-chip{padding:13px 14px}.em-info strong{font-size:16px}.emergency-chip.call-active .em-info strong{font-size:22px}
+}
+
 </style>
 </head>
 <body>
@@ -918,7 +978,7 @@ body::selection{background:rgba(255,190,0,.32);color:#031427;}
     <span class="hl">Check List</span><br>de Fatiga y Somnolencia
   </div>
   <div class="hdr-sub">Área de Seguridad y Salud Ocupacional</div>
-  <div class="hdr-note">Complete el registro con sinceridad. Si RENIEC no responde, puede continuar llenando el nombre manualmente. La seguridad empieza con una decisión responsable.</div>
+  <div class="hdr-note">Complete el registro con honestidad operativa. Si RENIEC no responde, puede continuar manualmente. La seguridad empieza antes de encender la unidad.</div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════
@@ -1022,14 +1082,18 @@ body::selection{background:rgba(255,190,0,.32);color:#031427;}
       </div>
       <div class="field">
         <label>N° de Licencia <span class="req">*</span></label>
-        <input type="text" id="licencia" placeholder="Ej: Q12345678">
+        <input type="text" id="licencia" placeholder="Ej: Q12345678" maxlength="9" inputmode="text" autocomplete="off"
+          oninput="formatearLicencia(this)">
+        <div class="field-help">Formato Perú: 1 letra + 8 dígitos. Máximo 9 caracteres. Ejemplo: Q12345678.</div>
       </div>
     </div>
 
     <div class="g3">
       <div class="field">
         <label>Unidad / Placa <span class="req">*</span></label>
-        <input type="text" id="unidad" placeholder="Ej: BP-533N">
+        <input type="text" id="unidad" placeholder="Ej: ABC-123 / BP-533" maxlength="7" inputmode="text" autocomplete="off"
+          oninput="formatearPlaca(this)">
+        <div class="field-help">Placa vehicular peruana: 6 caracteres alfanuméricos. Se permite guion visual. Ejemplo: ABC-123.</div>
       </div>
       <div class="field">
         <label>Fecha <span class="req">*</span></label>
@@ -1134,7 +1198,14 @@ body::selection{background:rgba(255,190,0,.32);color:#031427;}
   <div class="card">
     <div class="ct">
       <div class="ct-ic"><i class="ti ti-clipboard-check"></i></div>
-      Conteste con Sinceridad
+      Declaración Veraz del Conductor
+    </div>
+    <div class="truth-panel">
+      <div class="truth-icon"><i class="ti ti-shield-half-filled"></i></div>
+      <div class="truth-copy">
+        <strong>Responda con total honestidad antes de operar la unidad.</strong>
+        <span>Este checklist no es un trámite: permite detectar fatiga, somnolencia, consumo de sustancias, malestar físico o falta de inspección antes de que se conviertan en un evento crítico.</span>
+      </div>
     </div>
     <div class="q-head">
       <div class="q-head-title"><i class="ti ti-clipboard-heart"></i><div>Evaluación rápida de fatiga y aptitud para conducir</div></div>
@@ -1145,28 +1216,26 @@ body::selection{background:rgba(255,190,0,.32);color:#031427;}
     <div class="risk-card" id="riskCard"><i class="ti ti-alert-triangle-filled"></i><div><strong>Atención preventiva</strong><span id="riskTxt">Se identificó una condición que requiere evaluación antes de conducir.</span></div></div>
   </div>
 
-  <div class="card">
-    <div class="ct">
+  <div class="card emergency-card">
+    <div class="ct emergency-title">
       <div class="ct-ic" style="background:linear-gradient(135deg,#cc0020,#ff2d55)">
         <i class="ti ti-phone-call"></i>
       </div>
-      Números de Emergencia
+      Contactos de Emergencia
     </div>
-    <div class="eg">
-      <a href="tel:969589097" class="eb eb-ctrl">
+    <div class="emergency-note"><i class="ti ti-hand-click"></i> Toque un contacto: en celular se abrirá la llamada y la tarjeta se ampliará visualmente.</div>
+    <div class="eg emergency-grid">
+      <a href="tel:969589097" class="eb eb-ctrl emergency-chip" onclick="marcarEmergencia(this)">
         <i class="ti ti-phone eic"></i>
-        <div class="en">969 589 097</div>
-        <div class="ename">Centro de Control Antapite</div>
+        <div class="em-info"><span>Centro de Control Antapite</span><strong>969 589 097</strong></div>
       </a>
-      <a href="tel:913008369" class="eb eb-emrg">
+      <a href="tel:913008369" class="eb eb-emrg emergency-chip" onclick="marcarEmergencia(this)">
         <i class="ti ti-ambulance eic"></i>
-        <div class="en">913 008 369</div>
-        <div class="ename">Central de Emergencias</div>
+        <div class="em-info"><span>Central de Emergencias</span><strong>913 008 369</strong></div>
       </a>
-      <a href="tel:5555" class="eb eb-radio">
+      <a href="tel:5555" class="eb eb-radio emergency-chip" onclick="marcarEmergencia(this)">
         <i class="ti ti-antenna eic"></i>
-        <div class="en">Canal 5555</div>
-        <div class="ename">Radio &middot; Central de Emergencias</div>
+        <div class="em-info"><span>Radio Emergencias</span><strong>Canal 5555</strong></div>
       </a>
     </div>
   </div>
@@ -1442,6 +1511,30 @@ function actualizarStepper() {
   document.getElementById('pfill').style.width = ((paso / 3) * 100) + '%';
 }
 
+
+// ── FORMATEO PERÚ: LICENCIA Y PLACA ──────────────────────────
+function formatearLicencia(el){
+  let v = (el.value || '').toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if (v.length > 0) {
+    v = v[0].replace(/[^A-Z]/g,'') + v.slice(1).replace(/\D/g,'');
+  }
+  el.value = v.slice(0, 9);
+  el.classList.toggle('input-ok', /^[A-Z]\d{8}$/.test(el.value));
+}
+function formatearPlaca(el){
+  let raw = (el.value || '').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6);
+  if (raw.length > 3) el.value = raw.slice(0,3) + '-' + raw.slice(3);
+  else el.value = raw;
+  el.classList.toggle('input-ok', /^[A-Z0-9]{6}$/.test(el.value.replace(/-/g,'')));
+}
+function licenciaValida(v){ return /^[A-Z]\d{8}$/.test((v||'').trim().toUpperCase()); }
+function placaValida(v){ return /^[A-Z0-9]{6}$/.test((v||'').trim().toUpperCase().replace(/-/g,'')); }
+function marcarEmergencia(el){
+  document.querySelectorAll('.emergency-chip.call-active').forEach(x => x.classList.remove('call-active'));
+  el.classList.add('call-active');
+  setTimeout(() => el.classList.remove('call-active'), 2600);
+}
+
 // ── VALIDACIÓN PASO 1 y 2 ─────────────────────────────────────
 function validar(s) {
   document.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
@@ -1460,6 +1553,18 @@ function validar(s) {
         mostrarModal('⚠️','Campo obligatorio', r.msg);
         return false;
       }
+    }
+    const lic = document.getElementById('licencia');
+    if (!licenciaValida(lic.value)) {
+      lic.classList.add('invalid');
+      mostrarModal('🪪','Licencia no válida','Ingrese una licencia peruana con 1 letra y 8 dígitos. Ejemplo: Q12345678. Máximo 9 caracteres.');
+      return false;
+    }
+    const pla = document.getElementById('unidad');
+    if (!placaValida(pla.value)) {
+      pla.classList.add('invalid');
+      mostrarModal('🚘','Placa no válida','Ingrese una placa/unidad con 6 caracteres alfanuméricos. Puede usar guion visual. Ejemplo: ABC-123.');
+      return false;
     }
     return true;
   }
@@ -1616,8 +1721,8 @@ async function enviar() {
     fecha_registro: new Date().toLocaleString('es-PE'),  // col 2
     dni:            document.getElementById('dni').value.trim(),         // col 3
     conductor:      document.getElementById('conductor').value.trim(),   // col 4
-    licencia:       document.getElementById('licencia').value.trim(),    // col 5
-    unidad:         document.getElementById('unidad').value.trim(),      // col 6
+    licencia:       document.getElementById('licencia').value.trim().toUpperCase(),    // col 5
+    unidad:         document.getElementById('unidad').value.trim().toUpperCase(),      // col 6
     fecha:          document.getElementById('fecha').value,              // col 7
     guardia:        document.getElementById('guardia').value,            // col 8
     empresa:        document.getElementById('empresa').value,            // col 9

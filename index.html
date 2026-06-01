@@ -857,6 +857,32 @@ canvas.sig{
 @keyframes fadeD{from{opacity:0;}to{opacity:1;}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
 @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(24px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+
+
+/* ═══════════════════════════════════════════════════
+   MEJORAS UX PREMIUM ANTAPITE — v2.0
+═══════════════════════════════════════════════════ */
+:root{--glass:rgba(255,255,255,.14);--glass-border:rgba(255,255,255,.28);--blue-soft:#e9f8ff;--ink:#061426;}
+body::selection{background:rgba(255,190,0,.32);color:#031427;}
+.app{max-width:780px;}
+.hdr{position:relative;}
+.hdr-kicker{display:inline-flex;align-items:center;gap:8px;margin:0 auto 12px;padding:8px 14px;border-radius:999px;color:#dffaff;font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;background:rgba(2,13,26,.34);border:1px solid rgba(255,255,255,.18);box-shadow:0 12px 34px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.hdr-kicker i{color:var(--gold);font-size:16px;filter:drop-shadow(0 0 8px rgba(255,190,0,.65));}
+.hdr-note{max-width:560px;margin:14px auto 0;color:rgba(255,255,255,.82);font-size:13px;line-height:1.7;text-shadow:0 2px 16px rgba(0,0,0,.35);}
+.ux-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:-10px 0 20px;}
+.ux-pill{display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:18px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.24);color:#fff;box-shadow:0 12px 34px rgba(2,13,26,.16);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.ux-pill i{font-size:24px;color:var(--gold);flex-shrink:0;}.ux-pill strong{display:block;font-size:12px;font-family:var(--fg);letter-spacing:.2px;}.ux-pill span{display:block;font-size:10px;color:rgba(255,255,255,.68);margin-top:2px;line-height:1.35;}
+@media(max-width:640px){.ux-strip{grid-template-columns:1fr}.ux-pill{padding:12px 14px}.hdr-note{font-size:12px}}
+.card{border-radius:26px;border-color:rgba(155,206,232,.68);box-shadow:0 20px 55px rgba(2,13,26,.12),0 1px 0 rgba(255,255,255,.8) inset;}
+.card::before{height:5px;background:linear-gradient(90deg,#00c6e0,#00e096,#ffbe00,#ff8c00,#ff2d55);}.ct{font-size:12px;margin-bottom:20px;}.ct-ic{border-radius:14px;box-shadow:0 10px 24px rgba(0,150,181,.34), inset 0 1px 0 rgba(255,255,255,.22);}
+.field input,.field select,.field textarea{min-height:48px;border-radius:16px;background:linear-gradient(145deg,#eef7ff,#fbfdff);}.field input:hover,.field select:hover,.field textarea:hover{border-color:#9fc7de;}.field-help{font-size:11px;color:#6689a0;line-height:1.55;margin-top:7px;}.input-ok{border-color:rgba(0,224,150,.65)!important;box-shadow:0 0 0 4px rgba(0,224,150,.10)!important;}
+.dni-wrap{border-radius:24px;padding:22px;background:linear-gradient(135deg,rgba(228,250,255,.94),rgba(239,255,249,.98) 45%,rgba(255,250,235,.92));border:1.5px solid rgba(0,198,224,.38);box-shadow:0 18px 44px rgba(0,120,170,.10);}.dni-title{font-size:12px;color:#007f9a;justify-content:space-between;flex-wrap:wrap;}.dni-mini{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid rgba(0,198,224,.22);font-size:10px;color:#27708c;font-weight:800;letter-spacing:.5px;}.dni-row{align-items:stretch;}.dni-actions{display:flex;gap:8px;align-items:stretch;}.btn-manual{background:#fff;border:1.5px solid #bfd8e8;color:#22506a;box-shadow:0 4px 16px rgba(2,13,26,.08);padding:13px 16px;border-radius:13px;}.btn-manual:hover{border-color:var(--accent);color:var(--accent2);transform:translateY(-2px);}.manual-hint{display:flex;align-items:flex-start;gap:9px;margin-top:12px;padding:12px 14px;border-radius:15px;background:rgba(255,255,255,.74);border:1px dashed rgba(0,152,181,.42);color:#2c5d75;font-size:11.5px;line-height:1.55;}.manual-hint i{font-size:18px;color:var(--accent2);flex-shrink:0;margin-top:1px;}.dni-result{border-radius:17px;box-shadow:0 10px 26px rgba(0,168,105,.12);}.dni-result-av{background:linear-gradient(135deg,#00e096,#0098b5);}
+.q-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px;background:linear-gradient(135deg,#eefaff,#f8fcff);border:1px solid #d4e8f5;border-radius:18px;padding:14px 16px;}.q-head-title{display:flex;align-items:center;gap:10px;color:var(--navy);font-weight:800;font-family:var(--fg);font-size:13px;}.q-head-title i{font-size:23px;color:var(--accent2);}.q-counter{font-size:12px;font-weight:800;color:#0e5d78;background:#fff;border:1px solid #bee0ee;border-radius:999px;padding:8px 12px;white-space:nowrap;}.qmeter{width:100%;height:8px;background:#dcecf5;border-radius:999px;overflow:hidden;margin-top:10px;}.qmeter-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent2),var(--accent),var(--gold));border-radius:999px;transition:width .35s ease;}.qi{border:1px solid transparent;border-radius:18px;padding:6px;transition:all .22s;}.qi:has(input:checked){background:rgba(0,198,224,.04);border-color:rgba(0,198,224,.18);}.qtxt{border-radius:16px;border-left:0;position:relative;padding-left:54px;min-height:56px;display:flex;align-items:center;}.qn{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#00c6e0,#0098b5);color:#fff;font-family:var(--fg);font-size:11px;}.qo{border-radius:16px;min-height:48px;background:#fff;}.qo:active{transform:scale(.98);}
+.risk-card{display:none;margin-top:18px;border-radius:20px;padding:16px 18px;background:linear-gradient(135deg,#fff4e0,#fff9ec);border:1.5px solid #ffd382;color:#664600;box-shadow:0 8px 28px rgba(255,140,0,.12);}.risk-card.show{display:flex;gap:12px;align-items:flex-start;animation:fadeUp .3s ease;}.risk-card i{font-size:28px;color:#ff8c00;flex-shrink:0;}.risk-card strong{display:block;font-size:13px;font-weight:900;margin-bottom:4px;}.risk-card span{font-size:12px;line-height:1.65;}.status-card{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding:15px 17px;border-radius:20px;background:linear-gradient(135deg,#031427,#063a70);color:#fff;border:1px solid rgba(0,198,224,.28);box-shadow:0 14px 38px rgba(2,13,26,.22);}.status-card i{font-size:28px;color:var(--gold);}.status-card strong{display:block;font-size:13px;font-family:var(--fg);}.status-card span{font-size:11px;color:rgba(255,255,255,.72);line-height:1.5;}.sig-wrap{position:relative;}.sig-placeholder{pointer-events:none;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:#9eb7c7;font-size:12px;font-weight:700;letter-spacing:.3px;}canvas.sig.touched + .sig-placeholder{display:none;}
+.floating-help{position:fixed;right:16px;bottom:16px;z-index:9997;display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:18px;background:rgba(2,13,26,.94);color:#fff;text-decoration:none;border:1px solid rgba(0,198,224,.28);box-shadow:0 14px 44px rgba(2,13,26,.36);backdrop-filter:blur(12px);}.floating-help i{font-size:22px;color:var(--gold);}.floating-help strong{display:block;font-size:11px;font-family:var(--fg);}.floating-help span{display:block;font-size:10px;color:rgba(255,255,255,.62);}
+@media(max-width:520px){.floating-help{left:14px;right:14px;bottom:12px;justify-content:center}.app{padding-bottom:115px}.dni-row{flex-direction:column}.dni-actions{display:grid;grid-template-columns:1fr 1fr}.btn-manual,.btn-gd{width:100%;justify-content:center}.qopts{gap:8px}.qtxt{font-size:12px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
 </style>
 </head>
 <body>
@@ -882,6 +908,7 @@ canvas.sig{
      HEADER
 ═══════════════════════════════════════════════════ -->
 <div class="hdr">
+  <div class="hdr-kicker"><i class="ti ti-sparkles"></i> Control preventivo digital</div>
   <div class="hdr-logo"><i class="ti ti-shield-check"></i></div>
   <div class="hdr-badge">
     <div class="hdr-badge-dot"></div>
@@ -891,6 +918,7 @@ canvas.sig{
     <span class="hl">Check List</span><br>de Fatiga y Somnolencia
   </div>
   <div class="hdr-sub">Área de Seguridad y Salud Ocupacional</div>
+  <div class="hdr-note">Complete el registro con sinceridad. Si RENIEC no responde, puede continuar llenando el nombre manualmente. La seguridad empieza con una decisión responsable.</div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════
@@ -914,13 +942,19 @@ canvas.sig{
 </div>
 <div class="pbar"><div class="pfill" id="pfill" style="width:33%"></div></div>
 
+<div class="ux-strip">
+  <div class="ux-pill"><i class="ti ti-route"></i><div><strong>3 pasos rápidos</strong><span>Datos, preguntas y firma.</span></div></div>
+  <div class="ux-pill"><i class="ti ti-id-badge-2"></i><div><strong>RENIEC opcional</strong><span>Si falla, registre manual.</span></div></div>
+  <div class="ux-pill"><i class="ti ti-database-check"></i><div><strong>Registro único</strong><span>Envío al mismo sistema.</span></div></div>
+</div>
+
 <!-- ═══════════════════════════════════════════════════
      PANTALLA ÉXITO
 ═══════════════════════════════════════════════════ -->
 <div class="succ" id="succScreen">
   <div class="succ-ring"><i class="ti ti-circle-check"></i></div>
   <h2>¡Registro Completado!</h2>
-  <p>Los datos fueron guardados correctamente en el sistema de Sierra Antapite.</p>
+  <p>El registro fue enviado correctamente al sistema de Sierra Antapite. Verifique el consolidado si requiere confirmar la carga.</p>
   <a class="sheets-link"
      href="https://docs.google.com/spreadsheets/d/1NVlb1nk_g2ct_V7Q0zCWdMwCe1ZTu6Ti_pIiDGVgu88/edit?usp=sharing"
      target="_blank" rel="noopener"
@@ -949,7 +983,7 @@ canvas.sig{
 
     <!-- DNI -->
     <div class="dni-wrap">
-      <div class="dni-title"><i class="ti ti-id-badge"></i> Búsqueda automática por DNI (RENIEC)</div>
+      <div class="dni-title"><span><i class="ti ti-id-badge"></i> Identificación del conductor</span><span class="dni-mini"><i class="ti ti-shield-lock"></i> Validación + modo manual</span></div>
       <div class="field" style="margin-bottom:0">
         <label>DNI del Conductor <span class="req">*</span></label>
         <div class="dni-row">
@@ -958,12 +992,18 @@ canvas.sig{
               inputmode="numeric"
               oninput="this.value=this.value.replace(/\D/g,'');if(this.value.length===8)buscarDNI()">
           </div>
-          <button class="btn btn-gd" id="dnibtn" onclick="buscarDNI()"
-            style="padding:13px 18px;border-radius:13px;flex-shrink:0">
-            <i class="ti ti-search"></i> Buscar
-          </button>
+          <div class="dni-actions">
+            <button class="btn btn-gd" id="dnibtn" onclick="buscarDNI()"
+              style="padding:13px 18px;border-radius:13px;flex-shrink:0">
+              <i class="ti ti-search"></i> Buscar
+            </button>
+            <button type="button" class="btn btn-manual" id="manualbtn" onclick="activarManual()">
+              <i class="ti ti-pencil"></i> Manual
+            </button>
+          </div>
         </div>
         <div class="dni-st" id="dnist"></div>
+        <div class="manual-hint"><i class="ti ti-info-circle"></i><div><strong>Importante:</strong> la consulta RENIEC puede fallar por conexión, límite de consultas o bloqueo externo. Si ocurre, escriba apellidos y nombres completos manualmente y continúe.</div></div>
       </div>
       <div class="dni-result" id="dniResult">
         <div class="dni-result-av"><i class="ti ti-user"></i></div>
@@ -976,8 +1016,9 @@ canvas.sig{
 
     <div class="g2">
       <div class="field">
-        <label>Apellidos y Nombres <span class="req">*</span></label>
-        <input type="text" id="conductor" placeholder="Se autocompleta con el DNI">
+        <label>Apellidos y Nombres del Conductor <span class="req">*</span></label>
+        <input type="text" id="conductor" placeholder="Autocompleta RENIEC o escriba manualmente el nombre completo">
+        <div class="field-help">Si el DNI no se encuentra, este campo se puede completar manualmente.</div>
       </div>
       <div class="field">
         <label>N° de Licencia <span class="req">*</span></label>
@@ -1014,7 +1055,7 @@ canvas.sig{
             <option value="">Seleccionar empresa</option>
             <option>SIERRA</option><option>GEMIN</option><option>LACHY GRYLL</option>
             <option>ISA</option><option>TIO LUCHO</option><option>GEMIN ASSOCIATES</option>
-            <option>2M MICON</option><option>Canelo</option><option>San Pedro</option>
+            <option>2M MICON</option><option>Canelo</option><option>Buss Service</option><option>Consorcio San Pedro</option>
             <option>TDM</option><option>A&amp;A IMPORT</option><option>EMICOR</option>
             <option>RUGICOCA</option><option>TOVCOR</option><option>MOVITECNICA</option>
           </select>
@@ -1095,7 +1136,13 @@ canvas.sig{
       <div class="ct-ic"><i class="ti ti-clipboard-check"></i></div>
       Conteste con Sinceridad
     </div>
+    <div class="q-head">
+      <div class="q-head-title"><i class="ti ti-clipboard-heart"></i><div>Evaluación rápida de fatiga y aptitud para conducir</div></div>
+      <div class="q-counter" id="qCounter">0 de 7 respondidas</div>
+      <div class="qmeter"><div class="qmeter-fill" id="qMeterFill"></div></div>
+    </div>
     <div id="preguntas"></div>
+    <div class="risk-card" id="riskCard"><i class="ti ti-alert-triangle-filled"></i><div><strong>Atención preventiva</strong><span id="riskTxt">Se identificó una condición que requiere evaluación antes de conducir.</span></div></div>
   </div>
 
   <div class="card">
@@ -1171,6 +1218,11 @@ canvas.sig{
 ═══════════════════════════════════════════════════ -->
 <div class="panel" id="p3">
 
+  <div class="status-card">
+    <i class="ti ti-writing-sign"></i>
+    <div><strong>Último paso: confirme su declaración</strong><span>Revise sus respuestas, firme en el recuadro y envíe el registro.</span></div>
+  </div>
+
   <div class="card">
     <div class="ct"><div class="ct-ic"><i class="ti ti-writing"></i></div>Firma del Conductor</div>
     <div class="sb">
@@ -1178,7 +1230,7 @@ canvas.sig{
         <i class="ti ti-user" style="vertical-align:-2px;margin-right:5px"></i>
         Firma del Conductor <span style="color:var(--danger)">*</span>
       </div>
-      <canvas class="sig" id="cv-conductor" width="680" height="140"></canvas>
+      <div class="sig-wrap"><canvas class="sig" id="cv-conductor" width="680" height="140"></canvas><div class="sig-placeholder">Firme aquí con el dedo o mouse</div></div>
       <div class="sac">
         <button class="btn btn-gh" onclick="limpiar('cv-conductor')">
           <i class="ti ti-trash" style="margin-right:4px;vertical-align:-1px"></i>Limpiar firma
@@ -1221,7 +1273,7 @@ canvas.sig{
 
   <button class="bsub" id="btnEnviar" onclick="enviar()">
     <span id="btxt" style="display:flex;align-items:center;gap:10px">
-      <i class="ti ti-send" style="font-size:17px"></i> Registrar y Enviar
+      <i class="ti ti-send" style="font-size:17px"></i> Registrar de forma segura
     </span>
     <div class="spin" id="spin"></div>
   </button>
@@ -1249,6 +1301,11 @@ canvas.sig{
 </div>
 
 </div><!-- /app -->
+
+<a class="floating-help" href="tel:969589097">
+  <i class="ti ti-headset"></i>
+  <div><strong>Soporte / Control</strong><span>969 589 097</span></div>
+</a>
 
 <!-- ═══════════════════════════════════════════════════
      MODAL
@@ -1291,6 +1348,7 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx9iPvFKwNdO87vFMBl6
 document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
 const hh = new Date().getHours();
 document.getElementById('guardia').value = (hh >= 7 && hh < 19) ? 'Día' : 'Noche';
+['fecha','guardia'].forEach(id => document.getElementById(id).classList.add('input-ok'));
 
 // ── PREGUNTAS — en el mismo orden que las cabeceras del GS ────
 // q1=P1, q2=P2, ..., q7=P7
@@ -1321,6 +1379,34 @@ PQ.forEach((p, i) => {
     </div>
   </div>`;
 });
+
+function actualizarPreguntasUX(){
+  let respondidas = 0;
+  const riesgos = [];
+  for (let i = 1; i <= 7; i++) {
+    const el = document.querySelector(`input[name="q${i}"]:checked`);
+    if (el) respondidas++;
+    const v = el ? el.value : '';
+    if ((i === 1 && v === 'No') || (i === 2 && v === 'No') || (i === 4 && v === 'Sí') || (i === 5 && v === 'Sí') || (i === 6 && v === 'No')) riesgos.push(i);
+  }
+  const counter = document.getElementById('qCounter');
+  const meter = document.getElementById('qMeterFill');
+  if (counter) counter.textContent = `${respondidas} de 7 respondidas`;
+  if (meter) meter.style.width = ((respondidas/7)*100) + '%';
+  const risk = document.getElementById('riskCard');
+  const riskTxt = document.getElementById('riskTxt');
+  if (risk) {
+    if (riesgos.length) {
+      risk.classList.add('show');
+      if (riskTxt) riskTxt.textContent = `Revise las preguntas ${riesgos.join(', ')}. Si existe fatiga, malestar, consumo de alcohol/drogas o unidad no inspeccionada, debe reportarse antes de conducir.`;
+    } else risk.classList.remove('show');
+  }
+}
+document.addEventListener('change', e => {
+  if (e.target && e.target.matches('input[type="radio"]')) actualizarPreguntasUX();
+  if (e.target && e.target.matches('input,select,textarea')) e.target.classList.toggle('input-ok', !!e.target.value.trim());
+});
+actualizarPreguntasUX();
 
 // ── STEPPER ───────────────────────────────────────────────────
 let paso = 1;
@@ -1402,59 +1488,63 @@ function cerrarModal(e) {
     document.getElementById('modal').style.display = 'none';
 }
 
-// ── DNI LOOKUP via RENIEC (api.apis.net.pe) ───────────────────
+// ── DNI LOOKUP via RENIEC + MODO MANUAL ROBUSTO ────────────────
+function activarManual(){
+  const fld = document.getElementById('conductor');
+  const st  = document.getElementById('dnist');
+  const res = document.getElementById('dniResult');
+  if (res) res.classList.remove('show');
+  st.textContent = 'Modo manual activado. Escriba apellidos y nombres completos y continúe.';
+  st.className = 'dni-st dok';
+  fld.placeholder = 'Escriba APELLIDOS Y NOMBRES completos';
+  fld.focus();
+}
+
 async function buscarDNI() {
   const dni = document.getElementById('dni').value.trim();
   const st  = document.getElementById('dnist');
   const fld = document.getElementById('conductor');
   const btn = document.getElementById('dnibtn');
   const res = document.getElementById('dniResult');
-
   if (dni.length !== 8) {
     st.textContent = '⚠ El DNI debe tener exactamente 8 dígitos.';
     st.className = 'dni-st derr';
     res.classList.remove('show');
     return;
   }
-
   st.innerHTML = '<i class="ti ti-loader-2" style="animation:rot .7s linear infinite;display:inline-block;vertical-align:-3px;margin-right:5px"></i>Consultando RENIEC...';
   st.className = 'dni-st';
   st.style.color = 'var(--accent)';
   btn.disabled = true;
   res.classList.remove('show');
-
   try {
-    const r = await fetch(
-      'https://api.apis.net.pe/v2/reniec/dni?numero=' + dni,
-      {
-        headers:{ 'Authorization':'Bearer apis-token-13417.n4O68lGiOx3l0kFRvFhO9LHFtFTNjHsz' },
-        signal: AbortSignal.timeout(8000)
-      }
-    );
-    if (r.ok) {
-      const d = await r.json();
-      if (d.nombres) {
-        const nombre = d.nombres + ' ' + d.apellidoPaterno + ' ' + d.apellidoMaterno;
-        fld.value = nombre;
-        st.textContent = '✓ Datos encontrados en RENIEC.';
-        st.className = 'dni-st dok';
-        document.getElementById('dniNombre').textContent = nombre;
-        document.getElementById('dniDni').textContent    = 'DNI: ' + dni;
-        res.classList.add('show');
-      } else { throw new Error('sin datos'); }
-    } else { throw new Error('no encontrado'); }
-  } catch (_) {
-    st.textContent = 'No encontrado en RENIEC. Escribe el nombre manualmente.';
+    const controller = new AbortController();
+    const t = setTimeout(() => controller.abort(), 6500);
+    const r = await fetch('https://api.apis.net.pe/v2/reniec/dni?numero=' + encodeURIComponent(dni), {
+      headers:{ 'Authorization':'Bearer apis-token-13417.n4O68lGiOx3l0kFRvFhO9LHFtFTNjHsz' },
+      signal: controller.signal
+    });
+    clearTimeout(t);
+    if (!r.ok) throw new Error('no encontrado');
+    const d = await r.json();
+    if (!d || !d.nombres) throw new Error('sin datos');
+    const nombre = [d.nombres, d.apellidoPaterno, d.apellidoMaterno].filter(Boolean).join(' ').replace(/\s+/g,' ').trim();
+    fld.value = nombre;
+    fld.classList.add('input-ok');
+    st.textContent = '✓ Datos encontrados. Verifique el nombre antes de continuar.';
+    st.className = 'dni-st dok';
+    document.getElementById('dniNombre').textContent = nombre;
+    document.getElementById('dniDni').textContent    = 'DNI: ' + dni;
+    res.classList.add('show');
+  } catch (err) {
+    st.textContent = 'RENIEC no respondió o no encontró el DNI. Use el modo manual y continúe.';
     st.className = 'dni-st derr';
-    fld.placeholder = 'Escribe el nombre completo aquí';
-    fld.focus();
+    fld.placeholder = 'Escriba APELLIDOS Y NOMBRES completos';
     res.classList.remove('show');
-  }
-  btn.disabled = false;
+    setTimeout(() => fld.focus(), 120);
+  } finally { btn.disabled = false; }
 }
-document.getElementById('dni').addEventListener('keydown', e => {
-  if (e.key === 'Enter') buscarDNI();
-});
+document.getElementById('dni').addEventListener('keydown', e => { if (e.key === 'Enter') buscarDNI(); });
 
 // ── CANVAS FIRMA ──────────────────────────────────────────────
 function initCanvas(id) {
@@ -1467,7 +1557,7 @@ function initCanvas(id) {
     const src = e.touches ? e.touches[0] : e;
     return { x:(src.clientX - r.left)*sx, y:(src.clientY - r.top)*sy };
   };
-  const start = e => { drawing=true; const p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); };
+  const start = e => { drawing=true; c.classList.add('touched'); const p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); };
   const draw  = e => {
     if (!drawing) return;
     const p = pos(e);
@@ -1489,6 +1579,7 @@ initCanvas('cv-conductor');
 function limpiar(id) {
   const c = document.getElementById(id);
   c.getContext('2d').clearRect(0, 0, c.width, c.height);
+  c.classList.remove('touched');
 }
 function canvasVacio(id) {
   const c = document.getElementById(id);
@@ -1548,24 +1639,21 @@ async function enviar() {
   sp.style.display   = 'block';
 
   try {
-    const res = await fetch(SCRIPT_URL, {
-      method:'POST',
-      headers:{ 'Content-Type':'text/plain' },
+    if (!navigator.onLine) throw new Error('Sin conexión a internet. Intente nuevamente.');
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
       body: JSON.stringify(data)
     });
-    const json = await res.json();
-    if (json.status === 'ok') {
-      // Mostrar pantalla de éxito
-      document.querySelector('.stepper').style.display = 'none';
-      document.querySelector('.pbar').style.display    = 'none';
-      document.getElementById('p3').classList.remove('active');
-      document.getElementById('succScreen').classList.add('show');
-      window.scrollTo({ top:0, behavior:'smooth' });
-    } else {
-      throw new Error(json.mensaje || 'Error del servidor.');
-    }
+    document.querySelector('.stepper').style.display = 'none';
+    document.querySelector('.pbar').style.display    = 'none';
+    const ux = document.querySelector('.ux-strip');
+    if (ux) ux.style.display = 'none';
+    document.getElementById('p3').classList.remove('active');
+    document.getElementById('succScreen').classList.add('show');
+    window.scrollTo({ top:0, behavior:'smooth' });
   } catch (err) {
-    document.getElementById('errdet').textContent = err.message;
+    document.getElementById('errdet').textContent = err.message || 'No se pudo conectar con el servidor. Verifique internet y vuelva a intentar.';
     document.getElementById('bnrerr').classList.add('show');
     document.getElementById('bnrerr').scrollIntoView({ behavior:'smooth', block:'nearest' });
   } finally {

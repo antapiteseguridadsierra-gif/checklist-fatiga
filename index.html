@@ -40,14 +40,22 @@
   --ok-bg:rgba(0,224,150,.09);
   --danger-bg:rgba(255,45,85,.07);
   --r:20px;--rs:13px;
-  --f:'Plus Jakarta Sans',sans-serif;
-  --fg:'Sora',sans-serif;
+  
+  /* AQUÍ SE REALIZÓ EL CAMBIO PARA ARIAL NARROW: */
+  --f:'Arial Narrow', 'Arial', sans-serif;
+  --fg:'Arial Narrow', 'Arial', sans-serif;
+  
   --shadow:0 4px 28px rgba(2,13,26,.12);
   --shadow-lg:0 12px 56px rgba(2,13,26,.2);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;}
 body{font-family:var(--f);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+/* SE AÑADIÓ ESTA REGLA ABAJO PARA OBLIGAR A TODO EL FORMULARIO A USAR LA NUEVA FUENTE: */
+*, select, input, button, textarea, option {
+  font-family: var(--f) !important;
+}
 
 /* ═══════════════════════════════════════════════════
    FONDO ULTRA VIVO — múltiples capas animadas

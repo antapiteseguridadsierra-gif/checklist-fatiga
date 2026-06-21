@@ -1833,85 +1833,9 @@ window.addEventListener('appinstalled', () => {
   ['apple-touch-icon','icon'].forEach((rel,i) => {
     const l = document.querySelector(`link[rel="${rel}"]`) || document.createElement('link');
     l.rel = rel; if(i===1){l.type='image/png';} l.href = d;
-    document.head.appendChild(l);
+       document.head.appendChild(l);
   });
 })();
-
-// ==========================================
-// DETECTOR AUTOMÁTICO DE MATRIZ DE APTITUD
-// ==========================================
-const spinElement = document.getElementById('spin');
-if (spinElement) {
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      // Detecta cuando el spinner se oculta (envío exitoso)
-      if (mutation.attributeName === 'style' && spinElement.style.display === 'none') {
-        const btnEnviar = document.getElementById('btnEnviar');
-        // Si el botón quedó deshabilitado, confirmamos que se ejecutó enviar()
-        if (btnEnviar && btnEnviar.disabled) {
-          
-          let respuestasSi = 0;
-          let tieneMalestar = false;
-          let tieneFatigaCritica = false;
-
-          // Analizamos las respuestas seleccionadas en el Paso 2
-          if (typeof questions !== 'undefined') {
-            questions.forEach((_, i) => {
-              const r = document.querySelector(`input[name="p_${i}"]:checked`);
-              if (r && r.value === 'SI') {
-                respuestasSi++;
-                if (i === 3) tieneMalestar = true;      // Pregunta 4 (dolores)
-                if (i === 0 || i === 4) tieneFatigaCritica = true; // Preguntas críticas (sueño/alcohol)
-              }
-            });
-          }
-
-          // Creamos e inyectamos la pantalla visual encima de todo de forma dinámica
-          const pantalla = document.createElement('div');
-          pantalla.style.cssText = "position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #020d1a; z-index: 99999; padding: 30px 20px; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-items: center;";
-          
-          let badgeText = "APTO";
-          let badgeBg = "#34c759";
-          let badgeColor = "#ffffff";
-          let mensajeText = "¡Excelente! Se encuentra en condiciones óptimas para conducir. Respete los límites de velocidad y tenga un viaje seguro en Sierra Antapite.";
-
-          if (tieneFatigaCritica) {
-            badgeText = "NO APTO";
-            badgeBg = "#ff3b30";
-            mensajeText = "ATENCIÓN: Usted no se encuentra en condiciones óptimas para operar. Queda restringido el inicio de ruta. Comuníquese de inmediato con su supervisor de seguridad.";
-          } else if (tieneMalestar) {
-            badgeText = "APTO CON MALESTAR / EVALUAR";
-            badgeBg = "#ff9500";
-            mensajeText = "PRECAUCIÓN: Reporte su malestar al área médica o a su supervisor antes de iniciar actividades para una evaluación presencial.";
-          } else if (respuestasSi > 0) {
-            badgeText = "CON ALERTA";
-            badgeBg = "#ffcc00";
-            badgeColor = "#000000";
-            mensajeText = "ALERTA DE FATIGA: Registra novedades menores. Manténgase alerta en la ruta, realice sus pausas activas obligatorias y aplique manejo defensivo.";
-          }
-
-          pantalla.innerHTML = `
-            <div style="max-width: 500px; width: 100%; margin: auto;">
-              <h3 style="font-family: 'Sora', sans-serif; color: #ffffff; margin-bottom: 20px; letter-spacing: 1px; font-size: 22px;">RESULTADO DE EVALUACIÓN</h3>
-              <div style="font-size: 24px; font-weight: 800; padding: 20px; border-radius: 12px; text-transform: uppercase; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); font-family: 'Sora', sans-serif; background-color: ${badgeBg}; color: ${badgeColor};">
-                ${badgeText}
-              </div>
-              <p style="font-size: 16px; color: #e0e0e0; line-height: 1.6; margin-bottom: 35px;">
-                ${mensajeText}
-              </p>
-              <button type="button" onclick="location.reload();" style="background: #ffffff; color: #020d1a; border: none; padding: 14px 35px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 16px; box-shadow: 0 4px 10px rgba(255,255,255,0.15);">
-                Entendido / Finalizar
-              </button>
-            </div>
-          `;
-          document.body.appendChild(pantalla);
-        }
-      }
-    });
-  });
-  observer.observe(spinElement, { attributes: true });
-}
-
 </script>
 
 </body>

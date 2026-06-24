@@ -709,7 +709,30 @@ canvas.sig.touched + .sig-placeholder{display:none;}
 
 @keyframes pop{from{transform:scale(.3);opacity:0;}to{transform:scale(1);opacity:1;}}
 
-/* ── MEJORAS MÓVIL ───────────────────────── */
+/* ── RESTRICCIÓN 10H ─────────────────────── */
+.rest-alert{
+  display:none;align-items:flex-start;gap:12px;
+  padding:16px;border-radius:16px;margin-top:12px;
+  background:linear-gradient(135deg,#fff7ed,#fffbeb);
+  border:2px solid rgba(245,158,11,.5);
+  animation:panelIn .3s ease;
+}
+.rest-alert.show{display:flex;}
+.rest-alert-ic{
+  width:44px;height:44px;border-radius:14px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,.4);
+}
+.rest-alert-txt strong{display:block;font-size:14px;font-weight:800;color:#92400e;margin-bottom:4px;}
+.rest-alert-txt span{display:block;font-size:12px;color:#b45309;line-height:1.6;}
+.rest-timer{
+  display:inline-flex;align-items:center;gap:5px;margin-top:7px;
+  padding:5px 12px;border-radius:999px;
+  background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);
+  font-size:12px;font-weight:800;color:#92400e;letter-spacing:.3px;
+}
+.rest-timer i{font-size:14px;}
 @media(max-width:520px){
   .floating-help{left:14px;right:14px;bottom:12px;justify-content:center;}
   .app{padding-bottom:120px;}
@@ -882,6 +905,15 @@ canvas.sig.touched + .sig-placeholder{display:none;}
         <div class="dni-result-info">
           <strong id="dniNombre">—</strong>
           <span id="dniDni">DNI: —</span>
+        </div>
+      </div>
+      <!-- ALERTA DE RESTRICCIÓN -->
+      <div class="rest-alert" id="restAlert">
+        <div class="rest-alert-ic"><i class="ti ti-clock-pause"></i></div>
+        <div class="rest-alert-txt">
+          <strong>Ya registraste este turno</strong>
+          <span id="restMsg">Debes esperar 10 horas entre registros del mismo turno.</span>
+          <div class="rest-timer"><i class="ti ti-hourglass"></i><span id="restTimer">—</span></div>
         </div>
       </div>
     </div>
@@ -1197,6 +1229,13 @@ const hh = new Date().getHours();
 document.getElementById('guardia').value = (hh >= 7 && hh < 19) ? 'Día' : 'Noche';
 ['fecha','guardia'].forEach(id => document.getElementById(id).classList.add('input-ok'));
 
+// ── Detectar cambios en DNI y turno para mostrar alerta de restricción
+document.getElementById('guardia').addEventListener('change', actualizarAlertaRestriccion);
+document.getElementById('dni').addEventListener('input', function(){
+  if(this.value.length >= 7) actualizarAlertaRestriccion();
+  else document.getElementById('restAlert').classList.remove('show');
+});
+
 // ── PREGUNTAS — en el mismo orden que las cabeceras del GS ────
 // q1=P1, q2=P2, ..., q7=P7
 const PQ = [
@@ -1255,6 +1294,42 @@ document.addEventListener('change', e => {
 });
 actualizarPreguntasUX();
 
+// ── RESTRICCIÓN 10 HORAS ─────────────────────────────────────
+const LIMITE_HORAS = 10;
+function claveRest(dni,turno){ return 'reg_'+(dni||'').trim()+'_'+(turno||'SD'); }
+function guardarRegistroLocal(dni,turno){
+  try{ localStorage.setItem(claveRest(dni,turno), Date.now().toString()); }catch(e){}
+}
+function verificarRestriccion(dni,turno){
+  if(!dni||dni.length<7) return null;
+  try{
+    const saved = localStorage.getItem(claveRest(dni,turno));
+    if(!saved) return null;
+    const elapsed = Date.now()-parseInt(saved);
+    const limite = LIMITE_HORAS*3600000;
+    if(elapsed<limite){
+      const rest=limite-elapsed;
+      return{horas:Math.floor(rest/3600000),mins:Math.floor((rest%3600000)/60000)};
+    }
+    localStorage.removeItem(claveRest(dni,turno));
+  }catch(e){}
+  return null;
+}
+function actualizarAlertaRestriccion(){
+  const dni=(document.getElementById('dni').value||'').trim();
+  const turno=(document.getElementById('guardia').value||'').trim();
+  const alerta=document.getElementById('restAlert');
+  if(!alerta) return;
+  const r=verificarRestriccion(dni,turno);
+  if(r){
+    document.getElementById('restMsg').textContent=
+      `Ya completaste el Check List para el turno "${turno||'indicado'}". Espera antes de volver a registrarte.`;
+    document.getElementById('restTimer').textContent=
+      `Tiempo restante: ${r.horas}h ${r.mins}min`;
+    alerta.classList.add('show');
+  } else { alerta.classList.remove('show'); }
+}
+
 // ── CONFETTI AL ÉXITO ─────────────────────
 function lanzarConfetti(){
   const container = document.getElementById('confettiContainer');
@@ -1279,6 +1354,10 @@ function lanzarConfetti(){
 
 // ── RELLENAR DATOS EN PANTALLA ÉXITO ─────
 function mostrarExito(){
+  const dni   = (document.getElementById('dni').value   || '').trim();
+  const turno = document.getElementById('guardia').value || '';
+  // Guardar restricción 10h en localStorage
+  guardarRegistroLocal(dni, turno);
   const f = document.getElementById('fecha').value;
   const fecha = f ? new Date(f+'T00:00:00').toLocaleDateString('es-PE',{day:'2-digit',month:'long',year:'numeric'}) : '—';
   document.getElementById('succFecha').textContent = fecha;
@@ -1294,6 +1373,17 @@ let paso = 1;
 const IC = ['ti ti-user','ti ti-clipboard-list','ti ti-writing'];
 function irA(n) {
   if (n > paso && !validar(paso)) return;
+  // ── Verificar restricción 10h antes de ir al paso 2
+  if (n === 2 && paso === 1) {
+    const dni   = (document.getElementById('dni').value   || '').trim();
+    const turno = (document.getElementById('guardia').value || '').trim();
+    const r = verificarRestriccion(dni, turno);
+    if (r) {
+      mostrarModal('⏳','Ya registraste este turno',
+        `El conductor con DNI ${dni} ya completó el Check List para el turno "${turno||'indicado'}".\n\nPodrás registrarte nuevamente en: ${r.horas}h ${r.mins}min.`);
+      return;
+    }
+  }
   document.getElementById('p' + paso).classList.remove('active');
   paso = n;
   document.getElementById('p' + paso).classList.add('active');

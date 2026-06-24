@@ -40,22 +40,14 @@
   --ok-bg:rgba(0,224,150,.09);
   --danger-bg:rgba(255,45,85,.07);
   --r:20px;--rs:13px;
-  
-  /* AQUÍ SE REALIZÓ EL CAMBIO PARA ARIAL NARROW: */
-  --f:'Arial Narrow', 'Arial', sans-serif;
-  --fg:'Arial Narrow', 'Arial', sans-serif;
-  
+  --f:'Plus Jakarta Sans',sans-serif;
+  --fg:'Sora',sans-serif;
   --shadow:0 4px 28px rgba(2,13,26,.12);
   --shadow-lg:0 12px 56px rgba(2,13,26,.2);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;}
 body{font-family:var(--f);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
-
-/* SE AÑADIÓ ESTA REGLA ABAJO PARA OBLIGAR A TODO EL FORMULARIO A USAR LA NUEVA FUENTE: */
-*, select, input, button, textarea, option {
-  font-family: var(--f) !important;
-}
 
 /* ═══════════════════════════════════════════════════
    FONDO ULTRA VIVO — múltiples capas animadas
@@ -1099,8 +1091,8 @@ body::selection{background:rgba(255,190,0,.32);color:#031427;}
     <div class="g3">
       <div class="field">
         <label>Unidad / Placa <span class="req">*</span></label>
-        <input type="text" id="unidad" placeholder="Ej: ABC-123 / BP-533" maxlength="15" inputmode="text" autocomplete="off">
-        <div class="field-help">Placa vehicular peruana: 15 caracteres alfanuméricos. Se permite guion visual. Ejemplo: ABC-123.</div>
+        <input type="text" id="unidad" placeholder="Ej: ABC-123, Excavadora 330, SEM 656F" maxlength="20" inputmode="text" autocomplete="off" oninput="formatearPlaca(this)">
+        <div class="field-help">Placa vehicular o nombre de unidad/equipo. Mínimo 2 caracteres, máximo 20. Ejemplos: ABC-123, Excavadora 330 CAT, SEM 656F, BP-533.</div>
       </div>
       <div class="field">
         <label>Fecha <span class="req">*</span></label>
@@ -1530,13 +1522,15 @@ function formatearLicencia(el){
   el.classList.toggle('input-ok', /^[A-Z]\d{8}$/.test(el.value));
 }
 function formatearPlaca(el){
-  let raw = (el.value || '').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6);
-  if (raw.length > 3) el.value = raw.slice(0,3) + '-' + raw.slice(3);
-  else el.value = raw;
-  el.classList.toggle('input-ok', /^[A-Z0-9]{6}$/.test(el.value.replace(/-/g,'')));
+  // Permite placa estándar (ABC-123) o nombre de equipo (Excavadora 330 CAT)
+  // Convierte a mayúsculas, permite letras, números, espacios, guiones y puntos
+  let v = el.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÑÜA-Z0-9\s\-\.\/]/gi, '').slice(0, 20);
+  el.value = v;
+  // Verde cuando tiene al menos 2 caracteres reales (sin espacios ni guiones)
+  el.classList.toggle('input-ok', v.replace(/[\s\-\.\/]/g, '').length >= 2);
 }
 function licenciaValida(v){ return /^[A-Z]\d{8}$/.test((v||'').trim().toUpperCase()); }
-function placaValida(v){ return /^[A-Z0-9]{6}$/.test((v||'').trim().toUpperCase().replace(/-/g,'')); }
+function placaValida(v){ return (v||'').trim().replace(/[\s\-\.\/]/g,'').length >= 2; }
 function marcarEmergencia(el){
   document.querySelectorAll('.emergency-chip.call-active').forEach(x => x.classList.remove('call-active'));
   el.classList.add('call-active');
@@ -1571,7 +1565,7 @@ function validar(s) {
     const pla = document.getElementById('unidad');
     if (!placaValida(pla.value)) {
       pla.classList.add('invalid');
-      mostrarModal('🚘','Placa no válida','Ingrese una placa/unidad con 6 caracteres alfanuméricos. Puede usar guion visual. Ejemplo: ABC-123.');
+      mostrarModal('🚘','Unidad / Placa requerida','Ingrese la placa o nombre del equipo/unidad asignada. Mínimo 2 caracteres. Ejemplos: ABC-123, Excavadora 330 CAT, SEM 656F, BP-533.');
       return false;
     }
     return true;
@@ -1841,7 +1835,7 @@ window.addEventListener('appinstalled', () => {
   ['apple-touch-icon','icon'].forEach((rel,i) => {
     const l = document.querySelector(`link[rel="${rel}"]`) || document.createElement('link');
     l.rel = rel; if(i===1){l.type='image/png';} l.href = d;
-       document.head.appendChild(l);
+    document.head.appendChild(l);
   });
 })();
 </script>

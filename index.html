@@ -2,25 +2,22 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Check List de Fatiga y Somnolencia · Sierra Antapite</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#020b18">
+<meta name="theme-color" content="#0a47a9">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="CheckList SSO">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
 /* ═══════════════════════════════════════════
    DESIGN SYSTEM — SIERRA ANTAPITE EXECUTIVE
 ═══════════════════════════════════════════ */
 :root{
-  --f:'Inter',system-ui,sans-serif;
-  --fg:'Space Grotesk',sans-serif;
+  --f:'Arial Narrow',Arial,sans-serif;
+  --fg:'Arial Narrow',Arial,sans-serif;
   --navy:#020b18;
   --navy2:#041428;
   --navy3:#071e3d;
@@ -57,9 +54,9 @@ body::selection{background:rgba(0,102,255,.2);}
 .bg-hero{
   position:absolute;top:0;left:0;right:0;height:600px;
   background:linear-gradient(145deg,
-    #020b18 0%,#041428 15%,#071e3d 30%,
-    #0a2850 42%,#0d3470 55%,#0f4090 65%,
-    #0052cc 78%,#0066ff 88%,#1a7fff 95%,#338fff 100%
+    #0a1628 0%,#0d2550 12%,#0a47a9 30%,
+    #1565d8 48%,#1e7aff 62%,#2a8fff 74%,
+    #00bcd4 85%,#00e5ff 100%
   );
 }
 .bg-mesh{
@@ -435,14 +432,26 @@ body::selection{background:rgba(0,102,255,.2);}
 .q-counter{font-size:12px;font-weight:700;color:var(--blue2);background:rgba(0,102,255,.08);border:1px solid rgba(0,102,255,.15);border-radius:999px;padding:7px 13px;white-space:nowrap;}
 .qmeter{width:100%;height:6px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:10px;}
 .qmeter-fill{height:100%;width:0;background:linear-gradient(90deg,var(--blue2),var(--cyan),var(--emerald));border-radius:999px;transition:width .35s ease;}
-.qi{margin-bottom:12px;border-radius:18px;padding:6px;border:1.5px solid transparent;transition:all .2s;}
-.qi:has(input:checked){background:rgba(0,102,255,.03);border-color:rgba(0,102,255,.12);}
+.qi{margin-bottom:14px;border-radius:18px;padding:6px;border:1.5px solid transparent;transition:all .25s ease;}
+.qi:has(input:checked){background:rgba(0,102,255,.04);border-color:rgba(0,102,255,.15);}
+.qi:focus-within .qtxt{
+  font-size:15px;
+  background:#fff;
+  box-shadow:0 4px 20px rgba(0,102,255,.12);
+  transform:scale(1.01);
+}
 .qtxt{
-  font-size:13px;font-weight:500;color:var(--text);
-  padding:12px 16px 12px 52px;
+  font-size:14px;font-weight:800;color:var(--text);
+  padding:14px 16px 14px 56px;
   background:#f8fafc;border-left:none;
-  border-radius:14px;margin-bottom:10px;line-height:1.65;
-  position:relative;min-height:52px;display:flex;align-items:center;
+  border-radius:14px;margin-bottom:10px;line-height:1.7;
+  position:relative;min-height:56px;display:flex;align-items:center;
+  letter-spacing:.1px;
+  transition:all .25s ease;
+}
+.qi:has(input:checked) .qtxt{
+  background:#eff6ff;
+  box-shadow:0 2px 12px rgba(0,102,255,.08);
 }
 .qn{
   position:absolute;left:12px;top:50%;transform:translateY(-50%);
@@ -591,32 +600,74 @@ canvas.sig.touched + .sig-placeholder{display:none;}
 .bnr i{font-size:24px;flex-shrink:0;}
 
 /* ── SUCCESS SCREEN ──────────────────────── */
-.succ{display:none;text-align:center;padding:60px 20px;animation:panelIn .5s ease both;}
+.succ{display:none;text-align:center;padding:40px 20px 60px;animation:panelIn .5s ease both;}
 .succ.show{display:block;}
+.succ-confetti{
+  position:fixed;inset:0;pointer-events:none;z-index:9990;overflow:hidden;
+}
+.confetti-piece{
+  position:absolute;top:-10px;width:10px;height:10px;border-radius:2px;
+  animation:confettiFall linear forwards;
+}
+@keyframes confettiFall{
+  0%{transform:translateY(0) rotate(0deg);opacity:1;}
+  100%{transform:translateY(100vh) rotate(720deg);opacity:0;}
+}
 .succ-ring{
-  width:114px;height:114px;border-radius:50%;
+  width:120px;height:120px;border-radius:50%;
   background:linear-gradient(135deg,#d1fae5,#ecfdf5);
-  border:3px solid var(--emerald);
+  border:4px solid var(--emerald);
   display:flex;align-items:center;justify-content:center;
-  margin:0 auto 24px;font-size:54px;color:var(--emerald);
-  box-shadow:0 0 0 10px rgba(16,185,129,.1),0 0 0 20px rgba(16,185,129,.05),0 0 60px rgba(16,185,129,.2);
-  animation:pop .55s cubic-bezier(.34,1.56,.64,1);
+  margin:0 auto 20px;font-size:56px;color:var(--emerald);
+  box-shadow:0 0 0 12px rgba(16,185,129,.1),0 0 0 24px rgba(16,185,129,.05),0 0 60px rgba(16,185,129,.25);
+  animation:pop .6s cubic-bezier(.34,1.56,.64,1);
 }
-@keyframes pop{from{transform:scale(.3);opacity:0;}to{transform:scale(1);opacity:1;}}
-.succ h2{font-family:var(--fg);font-size:28px;font-weight:800;color:var(--text);margin-bottom:10px;}
-.succ p{font-size:14px;color:var(--sub);margin-bottom:28px;line-height:1.65;}
+.succ-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 18px;border-radius:999px;margin-bottom:14px;
+  background:linear-gradient(135deg,var(--emerald),var(--emerald2));
+  color:#fff;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  box-shadow:0 4px 16px rgba(16,185,129,.4);
+  animation:pop .5s .2s cubic-bezier(.34,1.56,.64,1) both;
+}
+.succ h2{font-family:var(--fg);font-size:30px;font-weight:900;color:var(--text);margin-bottom:8px;letter-spacing:-.5px;}
+.succ-msg{
+  font-size:14px;color:var(--sub);margin-bottom:24px;line-height:1.7;
+  max-width:360px;margin-left:auto;margin-right:auto;
+}
+.succ-info-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  max-width:400px;margin:0 auto 24px;
+}
+.succ-info-chip{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  padding:14px;border-radius:16px;
+  background:#f8fafc;border:1.5px solid var(--border);
+}
+.succ-info-chip i{font-size:22px;color:var(--blue);}
+.succ-info-chip span{font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+.succ-info-chip strong{font-size:13px;color:var(--text);font-weight:800;}
 .sheets-link{
-  display:flex;align-items:center;gap:11px;
+  display:flex;align-items:center;gap:13px;
   background:linear-gradient(135deg,#ecfdf5,#f0fdf4);
-  border:1.5px solid rgba(16,185,129,.35);border-radius:16px;
-  padding:14px 17px;margin-bottom:20px;text-decoration:none;
-  transition:all .2s;box-shadow:0 2px 12px rgba(16,185,129,.1);
+  border:2px solid rgba(16,185,129,.4);border-radius:18px;
+  padding:16px 20px;margin:0 auto 14px;text-decoration:none;
+  transition:all .2s;box-shadow:0 4px 20px rgba(16,185,129,.15);
+  max-width:400px;
 }
-.sheets-link:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,185,129,.2);}
-.sheets-link i{font-size:24px;color:var(--emerald2);flex-shrink:0;}
-.sheets-link-txt strong{display:block;font-size:13px;font-weight:700;color:#065f46;}
-.sheets-link-txt span{font-size:11px;color:#047857;}
-.sheets-link-arr{margin-left:auto;color:var(--emerald2);font-size:18px;}
+.sheets-link:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(16,185,129,.25);}
+.sheets-link i{font-size:28px;color:var(--emerald2);flex-shrink:0;}
+.sheets-link-txt strong{display:block;font-size:14px;font-weight:800;color:#065f46;}
+.sheets-link-txt span{font-size:12px;color:#047857;margin-top:2px;display:block;}
+.sheets-link-arr{margin-left:auto;color:var(--emerald2);font-size:20px;}
+.succ-new-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:14px 28px;border-radius:14px;border:2px solid var(--border);
+  background:#fff;color:var(--sub);font-family:var(--fg);
+  font-size:14px;font-weight:700;cursor:pointer;
+  transition:all .2s;box-shadow:var(--shadow-sm);
+}
+.succ-new-btn:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px);}
 
 /* ── MODAL ───────────────────────────────── */
 .modal-bg{position:fixed;inset:0;z-index:9999;background:rgba(2,13,26,.65);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeD .2s ease;}
@@ -656,7 +707,9 @@ canvas.sig.touched + .sig-placeholder{display:none;}
 .floating-help strong{display:block;font-size:11px;font-family:var(--fg);}
 .floating-help span{display:block;font-size:10px;color:rgba(255,255,255,.6);}
 
-/* ── RESPONSIVE ──────────────────────────── */
+@keyframes pop{from{transform:scale(.3);opacity:0;}to{transform:scale(1);opacity:1;}}
+
+/* ── MEJORAS MÓVIL ───────────────────────── */
 @media(max-width:520px){
   .floating-help{left:14px;right:14px;bottom:12px;justify-content:center;}
   .app{padding-bottom:120px;}
@@ -664,7 +717,24 @@ canvas.sig.touched + .sig-placeholder{display:none;}
   .dni-actions{display:grid;grid-template-columns:1fr 1fr;}
   .btn-manual,.btn-gd{width:100%;justify-content:center;}
   .qopts{gap:8px;}
-  .qtxt{font-size:12px;}
+  .qtxt{font-size:15px;font-weight:800;padding:16px 14px 16px 54px;}
+  .qo{padding:14px 10px;font-size:14px;font-weight:800;}
+  .card{padding:20px 16px;}
+  .hdr-title{font-size:clamp(28px,8vw,42px);}
+  .succ-info-grid{grid-template-columns:1fr 1fr;}
+  .bsub{font-size:15px;padding:17px;}
+  .btn-next{font-size:14px;padding:16px 20px;}
+  .g2,.g3{grid-template-columns:1fr;}
+}
+@media(max-width:380px){
+  .qtxt{font-size:14px;}
+  .hdr-title{font-size:26px;}
+  .info-strip{grid-template-columns:1fr;}
+}
+@media(min-width:768px){
+  .app{padding:36px 24px 100px;}
+  .card{padding:30px;}
+  .qtxt{font-size:15px;}
 }
 @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;}}
@@ -733,15 +803,42 @@ canvas.sig.touched + .sig-placeholder{display:none;}
 
 <!-- PANTALLA ÉXITO -->
 <div class="succ" id="succScreen">
+  <div class="succ-confetti" id="confettiContainer"></div>
   <div class="succ-ring"><i class="ti ti-circle-check"></i></div>
-  <h2>¡Registro Completado!</h2>
-  <p>El registro fue enviado correctamente al sistema de Sierra Antapite. Verifique el consolidado si requiere confirmar la carga.</p>
-  <a class="sheets-link" href="https://docs.google.com/spreadsheets/d/1NVlb1nk_g2ct_V7Q0zCWdMwCe1ZTu6Ti_pIiDGVgu88/edit?usp=sharing" target="_blank" rel="noopener" style="max-width:340px;margin:0 auto 24px;">
-    <i class="ti ti-table"></i>
-    <div class="sheets-link-txt"><strong>Ver registros guardados</strong><span>Google Sheets · Sierra Antapite</span></div>
+  <div class="succ-badge"><i class="ti ti-check"></i> Registro Completado</div>
+  <h2>¡Listo, gracias!</h2>
+  <p class="succ-msg">Su declaración de fatiga y somnolencia fue enviada correctamente al sistema SSO de Sierra Antapite. Queda registrada en Google Sheets.</p>
+  <div class="succ-info-grid">
+    <div class="succ-info-chip">
+      <i class="ti ti-calendar-check"></i>
+      <span>Fecha</span>
+      <strong id="succFecha">—</strong>
+    </div>
+    <div class="succ-info-chip">
+      <i class="ti ti-clock"></i>
+      <span>Turno</span>
+      <strong id="succTurno">—</strong>
+    </div>
+    <div class="succ-info-chip">
+      <i class="ti ti-user-check"></i>
+      <span>Conductor</span>
+      <strong id="succNombre">—</strong>
+    </div>
+    <div class="succ-info-chip">
+      <i class="ti ti-car"></i>
+      <span>Unidad</span>
+      <strong id="succUnidad">—</strong>
+    </div>
+  </div>
+  <a class="sheets-link" href="https://docs.google.com/spreadsheets/d/1NVlb1nk_g2ct_V7Q0zCWdMwCe1ZTu6Ti_pIiDGVgu88/edit?usp=sharing" target="_blank" rel="noopener">
+    <i class="ti ti-table-filled"></i>
+    <div class="sheets-link-txt">
+      <strong>📋 Ver todos los registros</strong>
+      <span>Google Sheets · Base de datos Sierra Antapite</span>
+    </div>
     <i class="ti ti-external-link sheets-link-arr"></i>
   </a>
-  <button class="btn btn-ol" style="margin:0 auto" onclick="location.reload()">
+  <button class="succ-new-btn" onclick="location.reload()">
     <i class="ti ti-refresh"></i> Nuevo registro
   </button>
 </div>
@@ -1158,7 +1255,41 @@ document.addEventListener('change', e => {
 });
 actualizarPreguntasUX();
 
-// ── STEPPER ───────────────────────────────────────────────────
+// ── CONFETTI AL ÉXITO ─────────────────────
+function lanzarConfetti(){
+  const container = document.getElementById('confettiContainer');
+  if(!container) return;
+  const colors = ['#0066ff','#00e5ff','#10b981','#f59e0b','#ef4444','#8b5cf6','#ec4899'];
+  for(let i=0;i<80;i++){
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.cssText = `
+      left:${Math.random()*100}%;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      width:${6+Math.random()*8}px;
+      height:${6+Math.random()*8}px;
+      border-radius:${Math.random()>0.5?'50%':'2px'};
+      animation-duration:${2+Math.random()*2.5}s;
+      animation-delay:${Math.random()*1.2}s;
+    `;
+    container.appendChild(el);
+  }
+  setTimeout(()=>{ container.innerHTML=''; }, 5000);
+}
+
+// ── RELLENAR DATOS EN PANTALLA ÉXITO ─────
+function mostrarExito(){
+  const f = document.getElementById('fecha').value;
+  const fecha = f ? new Date(f+'T00:00:00').toLocaleDateString('es-PE',{day:'2-digit',month:'long',year:'numeric'}) : '—';
+  document.getElementById('succFecha').textContent = fecha;
+  document.getElementById('succTurno').textContent = document.getElementById('guardia').value || 'No especificado';
+  const nombre = document.getElementById('conductor').value || '—';
+  document.getElementById('succNombre').textContent = nombre.split(' ').slice(0,2).join(' ');
+  document.getElementById('succUnidad').textContent = document.getElementById('unidad').value || '—';
+  document.getElementById('succScreen').classList.add('show');
+  lanzarConfetti();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 let paso = 1;
 const IC = ['ti ti-user','ti ti-clipboard-list','ti ti-writing'];
 function irA(n) {
@@ -1435,7 +1566,7 @@ async function enviar() {
     const ux = document.querySelector('.ux-strip');
     if (ux) ux.style.display = 'none';
     document.getElementById('p3').classList.remove('active');
-    document.getElementById('succScreen').classList.add('show');
+    mostrarExito();
     window.scrollTo({ top:0, behavior:'smooth' });
   } catch (err) {
     document.getElementById('errdet').textContent = err.message || 'No se pudo conectar con el servidor. Verifique internet y vuelva a intentar.';

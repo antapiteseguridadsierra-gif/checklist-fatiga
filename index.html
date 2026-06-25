@@ -1726,7 +1726,7 @@ function getR(name) {
   return el ? el.value : 'Sin respuesta';
 }
 
-// ── GENERAR PDF DEL CHECKLIST (1 hoja A4 · Arial Narrow · APA) ─
+// ── GENERAR PDF DEL CHECKLIST (1 hoja · 11pt · Arial Narrow) ────
 function generarPDF() {
   const d = pdfData;
   const PQ = [
@@ -1741,18 +1741,19 @@ function generarPDF() {
   const ans = [d.q1, d.q2, d.q3, d.q4, d.q5, d.q6, d.q7];
 
   const qRows = PQ.map((p, i) => {
-    const r = ans[i] || '—';
-    const color = r === 'Sí' ? '#059669' : r === 'No' ? '#dc2626' : '#64748b';
-    return `<tr>
-      <td class="cn">${i + 1}</td>
-      <td class="qtext">${p}</td>
-      <td class="ca" style="color:${color};font-weight:700">${r}</td>
+    const r  = ans[i] || '—';
+    const bg = r === 'Sí' ? '#f0fdf4' : r === 'No' ? '#fff5f5' : '#fff';
+    const fc = r === 'Sí' ? '#15803d'  : r === 'No' ? '#b91c1c'  : '#64748b';
+    return `<tr style="background:${bg}">
+      <td class="qn">${i + 1}</td>
+      <td class="qt"><strong>${p}</strong></td>
+      <td class="qa" style="color:${fc}"><strong>${r}</strong></td>
     </tr>`;
   }).join('');
 
   const firma = d.firma_conductor
-    ? `<img src="${d.firma_conductor}" style="max-height:44px;max-width:100%;display:block;margin:0 auto">`
-    : '<span style="color:#94a3b8;font-size:7pt">Sin firma registrada</span>';
+    ? `<img src="${d.firma_conductor}" style="max-height:48px;max-width:100%;display:block;margin:0 auto">`
+    : '<span style="color:#94a3b8">Sin firma registrada</span>';
 
   const obs = (d.observaciones || '').trim() || 'Sin observaciones.';
 
@@ -1760,207 +1761,188 @@ function generarPDF() {
 <html lang="es"><head><meta charset="UTF-8">
 <title>CheckList Fatiga — ${d.conductor || ''}</title>
 <style>
-@page { size: A4 portrait; margin: 14mm 18mm 12mm 18mm; }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+@page { size: A4 portrait; margin: 12mm 15mm 10mm 15mm; }
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
 body {
-  font-family: 'Arial Narrow', 'Arial Nova Cond', 'Helvetica Condensed', Arial, sans-serif;
-  font-size: 8.4pt;
-  color: #0f172a;
-  line-height: 1.35;
-  background: #fff;
+  font-family:'Arial Narrow','Arial Nova Cond',Arial,sans-serif;
+  font-size:11pt;
+  color:#0f172a;
+  line-height:1.32;
+  background:#fff;
 }
 
-/* ── CABECERA ── */
+/* ═══ CABECERA PRINCIPAL ═══ */
 .hdr {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border-top: 3pt solid #020b18;
-  border-bottom: 1.5pt solid #020b18;
-  padding: 6px 0 5px;
-  margin-bottom: 7px;
+  background:#020b18;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:7px 10px 6px;
+  border-radius:4px 4px 0 0;
 }
 .hdr-logo {
-  width: 34px; height: 34px; flex-shrink: 0;
-  background: linear-gradient(145deg, #f59e0b, #d97706);
-  border-radius: 5px;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  color: #fff; font-weight: 900;
-  font-size: 7pt; letter-spacing: 0.5px; line-height: 1.2;
+  width:38px; height:38px; flex-shrink:0;
+  background:linear-gradient(145deg,#f59e0b,#b45309);
+  border-radius:6px;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  font-weight:900; font-size:9pt; line-height:1.1; color:#fff;
+  letter-spacing:.5px;
 }
-.hdr-logo span { font-size: 5.5pt; font-weight: 700; letter-spacing: 1px; opacity: .85; }
-.hdr-mid { flex: 1; text-align: center; }
-.hdr-org  { font-size: 7pt; letter-spacing: 2px; text-transform: uppercase; color: #475569; margin-bottom: 1px; }
+.hdr-logo small { font-size:6pt; opacity:.8; letter-spacing:1px; }
+.hdr-center { flex:1; text-align:center; }
+.hdr-org {
+  font-size:7.5pt; letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,255,255,.65); margin-bottom:2px;
+}
 .hdr-title {
-  font-size: 13pt; font-weight: 900; letter-spacing: .5px;
-  text-transform: uppercase; color: #020b18; line-height: 1.1;
+  font-size:14pt; font-weight:900; letter-spacing:.3px;
+  text-transform:uppercase; line-height:1.05;
+  color:#fff;
 }
-.hdr-sub  { font-size: 7.2pt; color: #475569; margin-top: 1px; }
-.hdr-right { text-align: right; font-size: 7pt; color: #64748b; line-height: 1.6; min-width: 70px; }
-.hdr-right strong { display: block; font-size: 7.5pt; color: #0f172a; }
-
-/* ── ESTADO ── */
-.estado {
-  background: #f0fdf4;
-  border: 0.8pt solid #86efac;
-  border-radius: 3px;
-  text-align: center;
-  padding: 3px 0;
-  font-size: 7.8pt; font-weight: 700;
-  color: #15803d; letter-spacing: .6px;
-  text-transform: uppercase;
-  margin-bottom: 8px;
+.hdr-sub { font-size:8pt; color:rgba(255,255,255,.6); margin-top:2px; }
+.hdr-meta {
+  text-align:right; font-size:7.5pt;
+  color:rgba(255,255,255,.55); line-height:1.65; min-width:68px;
 }
+.hdr-meta strong { color:rgba(255,255,255,.9); font-size:8pt; display:block; }
 
-/* ── TÍTULOS DE SECCIÓN (APA: bold, centrado, Nivel 1) ── */
+/* franja dorada bajo header */
+.stripe { height:3px; background:linear-gradient(90deg,#f59e0b,#0066ff,#00c2e0); margin-bottom:6px; }
+
+/* ═══ BADGE ESTADO ═══ */
+.badge {
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  border:1.2pt solid #86efac; border-radius:3px;
+  background:#f0fdf4; padding:3.5px 8px;
+  font-size:11pt; font-weight:700; color:#15803d;
+  letter-spacing:.4px; margin-bottom:6px;
+}
+.badge-dot { width:7px; height:7px; background:#22c55e; border-radius:50%; flex-shrink:0; }
+
+/* ═══ TÍTULOS DE SECCIÓN ═══ */
 .sec {
-  font-size: 8.8pt; font-weight: 700;
-  color: #020b18;
-  text-align: center;
-  letter-spacing: .4px;
-  border-bottom: 0.8pt solid #020b18;
-  padding-bottom: 2px;
-  margin: 8px 0 4px;
-  text-transform: uppercase;
+  display:flex; align-items:center; gap:7px;
+  margin:6px 0 3px; font-size:11pt; font-weight:900;
+  text-transform:uppercase; letter-spacing:.6px; color:#020b18;
 }
+.sec-bar { width:4px; flex-shrink:0; align-self:stretch; min-height:16px; border-radius:2px; background:#0066ff; }
+.sec-line { flex:1; height:1pt; background:#e2e8f0; }
 
-/* ── TABLA DE DATOS ── */
-.tbl { width: 100%; border-collapse: collapse; }
-.tbl td {
-  border: 0.5pt solid #cbd5e1;
-  padding: 2.8px 5px;
-  vertical-align: middle;
-  font-size: 8pt;
-}
+/* ═══ TABLA DATOS CONDUCTOR ═══ */
+.tbl { width:100%; border-collapse:collapse; font-size:11pt; }
+.tbl td { border:0.5pt solid #cbd5e1; padding:3px 5px; vertical-align:middle; }
 .tbl .lbl {
-  background: #f1f5f9;
-  font-weight: 700;
-  color: #374151;
-  font-size: 7.4pt;
-  text-transform: uppercase;
-  letter-spacing: .3px;
-  white-space: nowrap;
-  width: 80px;
+  background:#f1f5f9; font-weight:700; color:#374151;
+  font-size:9pt; text-transform:uppercase; letter-spacing:.3px;
+  white-space:nowrap; width:1%;
 }
-.tbl .val { color: #0f172a; }
-.tbl .val-full { color: #0f172a; }
+.tbl .val  { color:#0f172a; }
 
-/* ── TABLA PREGUNTAS ── */
-.qt { width: 100%; border-collapse: collapse; }
-.qt thead tr { background: #020b18; }
-.qt thead th {
-  color: #fff; font-size: 7.8pt; font-weight: 700;
-  padding: 3px 5px; text-align: left; letter-spacing: .3px;
+/* ═══ TABLA PREGUNTAS ═══ */
+.qtbl { width:100%; border-collapse:collapse; font-size:11pt; }
+.qtbl thead tr { background:#020b18; }
+.qtbl thead th {
+  color:#fff; font-weight:700; padding:3.5px 6px;
+  text-align:left; font-size:9pt; letter-spacing:.3px;
 }
-.qt thead th.ca { text-align: center; }
-.qt tbody tr:nth-child(even) { background: #f8fafc; }
-.qt tbody tr:nth-child(odd)  { background: #fff; }
-.qt td {
-  border-bottom: 0.3pt solid #e2e8f0;
-  padding: 2.6px 5px;
-  vertical-align: middle;
-  font-size: 8pt;
-}
-.cn { width: 16px; text-align: center; font-weight: 700; color: #64748b; font-size: 7.5pt; }
-.qtext { line-height: 1.3; }
-.ca { width: 26px; text-align: center; font-size: 8pt; }
+.qtbl thead th.ca { text-align:center; }
+.qtbl td { border-bottom:0.4pt solid #e2e8f0; padding:3px 6px; vertical-align:middle; }
+.qn { width:18px; text-align:center; font-weight:900; color:#475569; font-size:10pt; }
+.qt { line-height:1.25; }
+.qa { width:30px; text-align:center; font-size:11pt; }
 
-/* ── OBSERVACIONES ── */
-.obs-box {
-  border: 0.5pt solid #cbd5e1;
-  border-radius: 2px;
-  background: #fafafa;
-  padding: 4px 6px;
-  font-size: 8pt;
-  min-height: 15px;
-  color: #0f172a;
+/* ═══ OBSERVACIONES ═══ */
+.obs {
+  border:0.5pt solid #cbd5e1; border-radius:3px;
+  background:#f8fafc; padding:4px 7px;
+  font-size:11pt; min-height:16px; color:#0f172a;
 }
 
-/* ── FIRMA ── */
-.firma-row { display: flex; gap: 0; margin-top: 4px; }
-.firma-block { flex: 1; }
-.firma-canvas {
-  border: 0.8pt solid #cbd5e1;
-  height: 46px;
-  display: flex; align-items: center; justify-content: center;
-  background: #fff;
+/* ═══ SECCIÓN FIRMA ═══ */
+.firma-wrap {
+  display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:3px;
 }
-.firma-label {
-  border-top: 0.8pt solid #020b18;
-  text-align: center;
-  padding-top: 2px;
-  margin-top: 3px;
+.firma-box {
+  border:0.8pt solid #cbd5e1; border-radius:3px;
+  height:50px; display:flex; align-items:center; justify-content:center;
+  background:#fff;
 }
-.firma-name { font-size: 8pt; font-weight: 700; color: #0f172a; }
-.firma-meta { font-size: 7pt; color: #475569; }
+.firma-info {
+  display:flex; flex-direction:column; justify-content:center;
+  padding:4px 8px; font-size:11pt;
+  border:0.5pt solid #e2e8f0; border-radius:3px; background:#f8fafc;
+}
+.firma-info .fn { font-weight:700; color:#020b18; font-size:11pt; }
+.firma-info .fm { color:#475569; font-size:9pt; margin-top:1px; }
+.firma-line {
+  border-top:0.8pt solid #020b18; text-align:center;
+  padding-top:2px; margin-top:3px;
+  font-size:9pt; color:#475569;
+}
 
-/* ── NOTA LEGAL ── */
+/* ═══ NOTA LEGAL ═══ */
 .nota {
-  background: #fefce8;
-  border: 0.5pt solid #fbbf24;
-  border-radius: 2px;
-  padding: 3px 6px;
-  font-size: 7pt;
-  color: #78350f;
-  font-style: italic;
-  margin-top: 7px;
+  margin-top:6px; padding:3px 7px;
+  background:#fefce8; border:0.5pt solid #fbbf24; border-radius:3px;
+  font-size:9pt; color:#78350f; font-style:italic; line-height:1.35;
 }
-.nota strong { font-style: normal; }
+.nota strong { font-style:normal; }
 
-/* ── PIE ── */
+/* ═══ PIE ═══ */
 .pie {
-  border-top: 0.5pt solid #cbd5e1;
-  padding-top: 3px;
-  margin-top: 7px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 6.8pt;
-  color: #94a3b8;
+  margin-top:5px; border-top:0.6pt solid #cbd5e1; padding-top:3px;
+  display:flex; justify-content:space-between;
+  font-size:8.5pt; color:#94a3b8;
 }
 
 @media print {
-  html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html,body { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
 </style></head>
 <body>
 
 <!-- CABECERA -->
 <div class="hdr">
-  <div class="hdr-logo">SSO<span>SIERRA</span></div>
-  <div class="hdr-mid">
-    <div class="hdr-org">Sierra Antapite &middot; Área de Seguridad, Salud y Medio Ambiente (SSO)</div>
+  <div class="hdr-logo">SSO<small>SIERRA</small></div>
+  <div class="hdr-center">
+    <div class="hdr-org">Sierra Antapite &middot; Área de Seguridad, Salud y Medio Ambiente</div>
     <div class="hdr-title">Check List de Fatiga y Somnolencia</div>
     <div class="hdr-sub">Declaración de Aptitud para Conducir &middot; Registro de Seguridad Operacional</div>
   </div>
-  <div class="hdr-right">
-    <strong>Reg. N°</strong>${d.fecha_registro ? d.fecha_registro.replace(/,.*/, '') : '—'}
-    <br>${d.fecha_registro || '—'}
-    <br>Pág. 1 de 1
+  <div class="hdr-meta">
+    <strong>Fecha de Registro</strong>
+    ${d.fecha_registro || '—'}
+    <br>Página 1 de 1
   </div>
 </div>
+<div class="stripe"></div>
 
 <!-- ESTADO -->
-<div class="estado">&#10003;&nbsp; Registro Completado &nbsp;·&nbsp; Declaración de Aptitud para Conducir</div>
+<div class="badge">
+  <div class="badge-dot"></div>
+  <strong>Registro Completado</strong>&nbsp;&middot;&nbsp;Declaración de Aptitud para Conducir
+</div>
 
 <!-- I. DATOS DEL CONDUCTOR -->
-<div class="sec">I. Datos del Conductor</div>
+<div class="sec"><div class="sec-bar"></div>I. Datos del Conductor<div class="sec-line"></div></div>
 <table class="tbl">
   <tr>
     <td class="lbl">DNI</td>
-    <td class="val" style="width:90px">${d.dni || '—'}</td>
+    <td class="val"><strong>${d.dni || '—'}</strong></td>
     <td class="lbl">N° Licencia</td>
-    <td class="val" style="width:90px">${d.licencia || '—'}</td>
+    <td class="val"><strong>${d.licencia || '—'}</strong></td>
     <td class="lbl">Guardia</td>
-    <td class="val" style="width:60px">${d.guardia || '—'}</td>
+    <td class="val"><strong>${d.guardia || '—'}</strong></td>
   </tr>
   <tr>
     <td class="lbl">Apellidos y Nombres</td>
-    <td class="val-full" colspan="5">${d.conductor || '—'}</td>
+    <td class="val" colspan="5"><strong>${d.conductor || '—'}</strong></td>
   </tr>
   <tr>
     <td class="lbl">Unidad / Placa</td>
-    <td class="val">${d.unidad || '—'}</td>
+    <td class="val"><strong>${d.unidad || '—'}</strong></td>
     <td class="lbl">Fecha</td>
     <td class="val">${d.fecha || '—'}</td>
     <td class="lbl">Empresa</td>
@@ -1970,53 +1952,56 @@ body {
     <td class="lbl">Área / Labor</td>
     <td class="val">${d.area || '—'}</td>
     <td class="lbl">Supervisor de Turno</td>
-    <td class="val-full" colspan="3">${d.supervisor || '—'}</td>
+    <td class="val" colspan="3">${d.supervisor || '—'}</td>
   </tr>
 </table>
 
-<!-- II. EVALUACIÓN DE FATIGA -->
-<div class="sec">II. Evaluación de Fatiga y Aptitud para Conducir</div>
-<table class="qt">
+<!-- II. EVALUACIÓN -->
+<div class="sec"><div class="sec-bar"></div>II. Evaluación de Fatiga y Aptitud para Conducir<div class="sec-line"></div></div>
+<table class="qtbl">
   <thead>
     <tr>
-      <th class="cn">#</th>
+      <th class="qn">#</th>
       <th>Pregunta de Evaluación</th>
-      <th class="ca">Resp.</th>
+      <th class="ca">Respuesta</th>
     </tr>
   </thead>
   <tbody>${qRows}</tbody>
 </table>
 
 <!-- III. OBSERVACIONES -->
-<div class="sec">III. Observaciones</div>
-<div class="obs-box">${obs}</div>
+<div class="sec"><div class="sec-bar"></div>III. Observaciones<div class="sec-line"></div></div>
+<div class="obs">${obs}</div>
 
 <!-- IV. FIRMA -->
-<div class="sec">IV. Firma del Conductor</div>
-<div class="firma-row">
-  <div class="firma-block">
-    <div class="firma-canvas">${firma}</div>
-    <div class="firma-label">
-      <div class="firma-name">${d.conductor || '—'}</div>
-      <div class="firma-meta">DNI: ${d.dni || '—'} &nbsp;&middot;&nbsp; Licencia: ${d.licencia || '—'}</div>
-      <div class="firma-meta">Firma del Conductor</div>
-    </div>
+<div class="sec"><div class="sec-bar"></div>IV. Firma del Conductor<div class="sec-line"></div></div>
+<div class="firma-wrap">
+  <div>
+    <div class="firma-box">${firma}</div>
+    <div class="firma-line">Firma del Conductor</div>
+  </div>
+  <div class="firma-info">
+    <div class="fn">${d.conductor || '—'}</div>
+    <div class="fm">DNI: <strong>${d.dni || '—'}</strong></div>
+    <div class="fm">Licencia: <strong>${d.licencia || '—'}</strong></div>
+    <div class="fm">Unidad: <strong>${d.unidad || '—'}</strong></div>
+    <div class="fm">Empresa: <strong>${d.empresa || '—'}</strong></div>
   </div>
 </div>
 
 <!-- NOTA LEGAL -->
 <div class="nota">
-  <strong>Nota:</strong> Mediante el registro y firma de este documento, el conductor declara encontrarse en condiciones físicas y mentales aptas para operar el vehículo asignado a su turno, en cumplimiento del Protocolo de Fatiga y Somnolencia de Sierra Antapite.
+  <strong>Declaración:</strong> Mediante el registro y firma de este documento, el conductor declara encontrarse en condiciones físicas y mentales aptas para operar el vehículo asignado a su turno, en cumplimiento del Protocolo de Fatiga y Somnolencia de Sierra Antapite.
 </div>
 
-<!-- PIE DE PÁGINA -->
+<!-- PIE -->
 <div class="pie">
   <span>Sierra Antapite &middot; Área SSO &middot; Control Preventivo Digital</span>
   <span>Check List de Fatiga y Somnolencia</span>
   <span>Página 1 de 1</span>
 </div>
 
-<script>window.onload = function(){ setTimeout(function(){ window.print(); }, 400); };<\/script>
+<script>window.onload=function(){setTimeout(function(){window.print();},400);};<\/script>
 </body></html>`;
 
   const win = window.open('', '_blank', 'width=820,height=1060,scrollbars=yes');

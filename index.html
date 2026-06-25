@@ -11,6 +11,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="CheckList SSO">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <style>
 /* ═══════════════════════════════════════════
    DESIGN SYSTEM — SIERRA ANTAPITE EXECUTIVE
@@ -676,6 +678,39 @@ canvas.sig.touched + .sig-placeholder{display:none;}
 .modal-box h3{font-family:var(--fg);font-size:20px;font-weight:700;color:var(--text);margin-bottom:9px;}
 .modal-box p{font-size:13px;color:var(--sub);line-height:1.7;margin-bottom:24px;}
 .modal-box .btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--navy),var(--navy2),var(--blue2));color:#fff;font-size:14px;border-radius:13px;}
+/* ── PDF OFFER CARD ──────────────────────── */
+.pdf-offer{
+  display:flex;align-items:center;gap:14px;
+  margin:14px auto 0;max-width:400px;
+  background:linear-gradient(135deg,#fff5f5,#fff1f2);
+  border:2px solid rgba(239,68,68,.25);border-radius:18px;
+  padding:16px 18px;
+  box-shadow:0 4px 20px rgba(239,68,68,.1);
+  animation:pop .55s .35s cubic-bezier(.34,1.56,.64,1) both;
+  text-align:left;
+}
+.pdf-offer-icon{
+  width:48px;height:48px;border-radius:14px;flex-shrink:0;
+  background:linear-gradient(135deg,#ef4444,#dc2626);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;color:#fff;
+  box-shadow:0 4px 16px rgba(239,68,68,.4);
+}
+.pdf-offer-txt{flex:1;min-width:0;}
+.pdf-offer-txt strong{display:block;font-size:13px;font-weight:800;color:var(--text);margin-bottom:3px;line-height:1.3;}
+.pdf-offer-txt span{font-size:11px;color:var(--sub);line-height:1.4;}
+.pdf-dl-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:11px 15px;border-radius:12px;border:none;
+  background:linear-gradient(135deg,#ef4444,#dc2626);
+  color:#fff;font-family:var(--fg);font-size:12px;font-weight:800;
+  cursor:pointer;white-space:nowrap;flex-shrink:0;
+  box-shadow:0 4px 16px rgba(239,68,68,.35);
+  transition:all .2s;
+}
+.pdf-dl-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(239,68,68,.5);}
+.pdf-dl-btn i{font-size:16px;}
+@media(max-width:480px){.pdf-offer{flex-wrap:wrap;}.pdf-dl-btn{width:100%;justify-content:center;}}
 @keyframes fadeD{from{opacity:0;}to{opacity:1;}}
 
 /* ── PWA BANNER ──────────────────────────── */
@@ -864,6 +899,18 @@ canvas.sig.touched + .sig-placeholder{display:none;}
   <button class="succ-new-btn" onclick="location.reload()">
     <i class="ti ti-refresh"></i> Nuevo registro
   </button>
+
+  <!-- PDF DOWNLOAD OFFER -->
+  <div class="pdf-offer" id="pdfOffer">
+    <div class="pdf-offer-icon"><i class="ti ti-eye"></i></div>
+    <div class="pdf-offer-txt">
+      <strong>¿Desea descargar el Checklist en PDF?</strong>
+      <span>Documento ordenado con sus datos, respuestas y firma incluida.</span>
+    </div>
+    <button class="pdf-dl-btn" onclick="generarPDF()">
+      <i class="ti ti-file-type-pdf"></i> Descargar PDF
+    </button>
+  </div>
 </div>
 
 <!-- ─── PASO 1 — DATOS DEL CONDUCTOR ──────── -->
@@ -1222,6 +1269,9 @@ canvas.sig.touched + .sig-placeholder{display:none;}
 //  (la obtienes en el Paso 5 de la guía del Code.gs)
 // ═══════════════════════════════════════════════════════════════
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx9iPvFKwNdO87vFMBl6bqOXyxTbtxOlVnKj2ZxLMf9GMNjI4mwWqYDa4es3y8Ur5S2ew/exec";
+
+// ── DATOS DEL ÚLTIMO ENVÍO (para PDF) ────────────────────────
+let pdfData = {};
 
 // ── VALORES INICIALES ─────────────────────────────────────────
 document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
@@ -1644,6 +1694,9 @@ async function enviar() {
   btxt.style.display = 'none';
   sp.style.display   = 'block';
 
+  // Guardar para uso del PDF
+  pdfData = { ...data };
+
   try {
     if (!navigator.onLine) throw new Error('Sin conexión a internet. Intente nuevamente.');
     await fetch(SCRIPT_URL, {
@@ -1671,6 +1724,245 @@ async function enviar() {
 function getR(name) {
   const el = document.querySelector(`input[name="${name}"]:checked`);
   return el ? el.value : 'Sin respuesta';
+}
+
+// ── GENERAR PDF DEL CHECKLIST ─────────────────────────────────
+function generarPDF() {
+  if (!window.jspdf) { alert('La librería PDF aún no cargó. Intente en un momento.'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const W = 210, MG = 16;
+  let y = 0;
+
+  // ── ENCABEZADO AZUL OSCURO ──────────────────
+  doc.setFillColor(2, 11, 24);
+  doc.rect(0, 0, W, 42, 'F');
+
+  // Logo cuadrado dorado
+  doc.setFillColor(245, 158, 11);
+  doc.roundedRect(MG, 8, 24, 24, 3, 3, 'F');
+  doc.setFontSize(7);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('SSO', MG + 12, 18, { align: 'center' });
+  doc.setFontSize(6);
+  doc.setFont('helvetica', 'normal');
+  doc.text('SIERRA', MG + 12, 24, { align: 'center' });
+  doc.text('ANTAPITE', MG + 12, 28, { align: 'center' });
+
+  // Título principal
+  doc.setFontSize(15);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('CHECK LIST DE FATIGA Y SOMNOLENCIA', MG + 30, 18);
+
+  doc.setFontSize(8.5);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(180, 205, 235);
+  doc.text('Sierra Antapite · Área SSO · Control Preventivo Digital', MG + 30, 25);
+
+  doc.setFontSize(7.5);
+  doc.setTextColor(140, 165, 200);
+  doc.text('Fecha de registro: ' + (pdfData.fecha_registro || new Date().toLocaleString('es-PE')), MG + 30, 32);
+
+  y = 50;
+
+  // ── BADGE DE ESTADO ──────────────────────────
+  doc.setFillColor(236, 253, 245);
+  doc.roundedRect(MG, y, W - MG * 2, 10, 2, 2, 'F');
+  doc.setDrawColor(16, 185, 129);
+  doc.setLineWidth(0.4);
+  doc.roundedRect(MG, y, W - MG * 2, 10, 2, 2, 'D');
+  doc.setFontSize(8.5);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(5, 150, 105);
+  doc.text('REGISTRO COMPLETADO  ·  DECLARACION DE APTITUD PARA CONDUCIR', W / 2, y + 6.5, { align: 'center' });
+
+  y += 16;
+
+  // ── SECCIÓN: DATOS DEL CONDUCTOR ─────────────
+  doc.setFillColor(7, 30, 61);
+  doc.roundedRect(MG, y, W - MG * 2, 8, 1.5, 1.5, 'F');
+  doc.setFontSize(8.5);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('  DATOS DEL CONDUCTOR', MG + 2, y + 5.5);
+  y += 10;
+
+  const fila = (label, val) => [label, val || '—'];
+  const datosBody = [
+    [fila('DNI', pdfData.dni)[0], fila('DNI', pdfData.dni)[1],
+     fila('N° Licencia', pdfData.licencia)[0], fila('N° Licencia', pdfData.licencia)[1]],
+    [fila('Conductor', pdfData.conductor)[0], { content: fila('Conductor', pdfData.conductor)[1], colSpan: 3 }],
+    [fila('Unidad / Placa', pdfData.unidad)[0], fila('Unidad / Placa', pdfData.unidad)[1],
+     fila('Guardia', pdfData.guardia)[0], fila('Guardia', pdfData.guardia)[1]],
+    [fila('Fecha', pdfData.fecha)[0], fila('Fecha', pdfData.fecha)[1],
+     fila('Empresa', pdfData.empresa)[0], fila('Empresa', pdfData.empresa)[1]],
+    [fila('Area / Labor', pdfData.area)[0], fila('Area / Labor', pdfData.area)[1],
+     fila('Supervisor', pdfData.supervisor)[0], fila('Supervisor', pdfData.supervisor)[1]],
+  ];
+
+  doc.autoTable({
+    startY: y,
+    body: datosBody,
+    theme: 'plain',
+    styles: { fontSize: 8.5, cellPadding: { top: 3, right: 4, bottom: 3, left: 4 }, overflow: 'linebreak', valign: 'middle' },
+    columnStyles: {
+      0: { fontStyle: 'bold', textColor: [55, 65, 81], fillColor: [241, 245, 249], cellWidth: 32 },
+      1: { textColor: [15, 23, 42], cellWidth: 55 },
+      2: { fontStyle: 'bold', textColor: [55, 65, 81], fillColor: [241, 245, 249], cellWidth: 32 },
+      3: { textColor: [15, 23, 42], cellWidth: 55 },
+    },
+    tableLineColor: [203, 213, 225],
+    tableLineWidth: 0.3,
+    margin: { left: MG, right: MG },
+  });
+
+  y = doc.lastAutoTable.finalY + 10;
+
+  // ── SECCIÓN: EVALUACIÓN DE FATIGA ────────────
+  doc.setFillColor(7, 30, 61);
+  doc.roundedRect(MG, y, W - MG * 2, 8, 1.5, 1.5, 'F');
+  doc.setFontSize(8.5);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('  EVALUACION DE FATIGA Y APTITUD PARA CONDUCIR', MG + 2, y + 5.5);
+  y += 10;
+
+  const PQ_PDF = [
+    "Descansó correctamente antes de su turno (mínimo 8 horas continuas)?",
+    "Se encuentra en buen estado físico y mental para conducir?",
+    "Sigue recomendaciones médicas si ingiere medicamento que genera somnolencia?",
+    "Ha consumido alcohol o drogas en las últimas 12 horas?",
+    "Tiene alguna dolencia o malestar físico que pueda afectar su conducción?",
+    "Ha realizado la inspección pre-operacional de su unidad?",
+    "Ha completado su capacitación de manejo defensivo vigente?"
+  ];
+  const ansArr = [pdfData.q1, pdfData.q2, pdfData.q3, pdfData.q4, pdfData.q5, pdfData.q6, pdfData.q7];
+  const qBody = PQ_PDF.map((p, i) => {
+    const ans = ansArr[i] || 'Sin respuesta';
+    return [{ content: `P${i + 1}`, styles: { fontStyle: 'bold', halign: 'center' } }, `¿${p}`, ans];
+  });
+
+  doc.autoTable({
+    startY: y,
+    head: [['#', 'Pregunta', 'Respuesta']],
+    body: qBody,
+    theme: 'striped',
+    headStyles: { fillColor: [4, 20, 40], textColor: 255, fontSize: 8, fontStyle: 'bold', halign: 'center' },
+    styles: { fontSize: 8.5, cellPadding: { top: 3.5, right: 4, bottom: 3.5, left: 4 }, overflow: 'linebreak', valign: 'middle' },
+    columnStyles: {
+      0: { cellWidth: 12, halign: 'center' },
+      1: { cellWidth: 143 },
+      2: { cellWidth: 19, halign: 'center', fontStyle: 'bold' },
+    },
+    alternateRowStyles: { fillColor: [248, 250, 252] },
+    margin: { left: MG, right: MG },
+    didParseCell: function (data) {
+      if (data.section === 'body' && data.column.index === 2) {
+        const txt = data.cell.text[0];
+        if (txt === 'Sí') data.cell.styles.textColor = [5, 150, 105];
+        else if (txt === 'No') data.cell.styles.textColor = [220, 38, 38];
+        else data.cell.styles.textColor = [100, 116, 139];
+      }
+    }
+  });
+
+  y = doc.lastAutoTable.finalY + 10;
+
+  // ── SECCIÓN: OBSERVACIONES ────────────────────
+  if (pdfData.observaciones && pdfData.observaciones.trim()) {
+    doc.setFillColor(7, 30, 61);
+    doc.roundedRect(MG, y, W - MG * 2, 8, 1.5, 1.5, 'F');
+    doc.setFontSize(8.5);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(255, 255, 255);
+    doc.text('  OBSERVACIONES', MG + 2, y + 5.5);
+    y += 10;
+    const obsW = W - MG * 2;
+    const obsLines = doc.splitTextToSize(pdfData.observaciones.trim(), obsW - 10);
+    const obsH = Math.max(16, obsLines.length * 5 + 8);
+    doc.setFillColor(248, 250, 252);
+    doc.setDrawColor(203, 213, 225);
+    doc.setLineWidth(0.3);
+    doc.roundedRect(MG, y, obsW, obsH, 2, 2, 'FD');
+    doc.setFontSize(8.5);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(15, 23, 42);
+    doc.text(obsLines, MG + 5, y + 7);
+    y += obsH + 10;
+  }
+
+  // ── SECCIÓN: FIRMA ────────────────────────────
+  if (y + 56 > 282) { doc.addPage(); y = 18; }
+
+  doc.setFillColor(7, 30, 61);
+  doc.roundedRect(MG, y, W - MG * 2, 8, 1.5, 1.5, 'F');
+  doc.setFontSize(8.5);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('  FIRMA DEL CONDUCTOR', MG + 2, y + 5.5);
+  y += 10;
+
+  const sigW = W - MG * 2, sigH = 38;
+  doc.setFillColor(255, 255, 255);
+  doc.setDrawColor(203, 213, 225);
+  doc.setLineWidth(0.4);
+  doc.roundedRect(MG, y, sigW, sigH, 2, 2, 'FD');
+
+  if (pdfData.firma_conductor) {
+    try { doc.addImage(pdfData.firma_conductor, 'PNG', MG + 2, y + 1, sigW - 4, sigH - 2); }
+    catch (e) { console.warn('Firma no pudo incrustarse:', e); }
+  }
+
+  y += sigH + 4;
+  doc.setDrawColor(100, 116, 139);
+  doc.setLineWidth(0.3);
+  doc.line(MG + 20, y, MG + sigW - 20, y);
+  y += 4;
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(8.5);
+  doc.setTextColor(15, 23, 42);
+  doc.text(pdfData.conductor || '—', W / 2, y, { align: 'center' });
+  y += 4.5;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(7.5);
+  doc.setTextColor(71, 85, 105);
+  doc.text('DNI: ' + (pdfData.dni || '—') + '   ·   Licencia: ' + (pdfData.licencia || '—'), W / 2, y, { align: 'center' });
+
+  // ── NOTA LEGAL ────────────────────────────────
+  y += 10;
+  if (y + 14 > 282) { doc.addPage(); y = 18; }
+  doc.setFillColor(254, 252, 232);
+  doc.setDrawColor(245, 158, 11);
+  doc.setLineWidth(0.3);
+  const notaLines = doc.splitTextToSize('Nota: Mediante el registro y firma de este documento, el conductor declara encontrarse en condiciones fisicas y mentales aptas para operar el vehiculo asignado a su turno.', W - MG * 2 - 10);
+  const notaH = notaLines.length * 4.5 + 6;
+  doc.roundedRect(MG, y, W - MG * 2, notaH, 2, 2, 'FD');
+  doc.setFontSize(7.5);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(120, 53, 15);
+  doc.text(notaLines, MG + 5, y + 5);
+  y += notaH;
+
+  // ── PIE DE PÁGINA ─────────────────────────────
+  const totalPages = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= totalPages; i++) {
+    doc.setPage(i);
+    doc.setDrawColor(7, 30, 61);
+    doc.setLineWidth(0.4);
+    doc.line(MG, 288, W - MG, 288);
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(148, 163, 184);
+    doc.text('Sierra Antapite · Area SSO · Check List de Fatiga y Somnolencia', W / 2, 292, { align: 'center' });
+    doc.text(`Pagina ${i} de ${totalPages}`, W - MG, 292, { align: 'right' });
+  }
+
+  // ── GUARDAR ───────────────────────────────────
+  const nombreLimpio = (pdfData.conductor || 'conductor').replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '_');
+  const fechaDoc = (pdfData.fecha || new Date().toISOString().split('T')[0]);
+  doc.save(`CheckList_Fatiga_${nombreLimpio}_${fechaDoc}.pdf`);
 }
 
 // ── PWA ───────────────────────────────────────────────────────

@@ -477,6 +477,11 @@ body::selection{background:rgba(0,102,255,.2);}
   background:rgba(239,68,68,.06);border-color:var(--danger);color:var(--danger);
   box-shadow:0 2px 12px rgba(239,68,68,.1);
 }
+/* Respuesta correcta = verde (usado en preguntas donde "No" es la opción segura/correcta, ej. P3) */
+.qo.ok-s:has(input:checked){
+  background:rgba(16,185,129,.08);border-color:var(--emerald);color:var(--emerald2);
+  box-shadow:0 2px 12px rgba(16,185,129,.14);
+}
 .qo input{display:none;}
 .qo:active{transform:scale(.97);}
 .risk-card{
@@ -1298,17 +1303,23 @@ const PQ = [
   "¿Ha completado su capacitación de manejo defensivo vigente?"                     // q7
 ];
 const pDiv = document.getElementById('preguntas');
+// P3 (actualizada): la respuesta correcta/segura es "No" → se resalta en VERDE.
+// "Sí" en P3 pasa a ser la opción de riesgo → se resalta en ROJO.
+const PREGUNTAS_NO_ES_CORRECTO = [3];
 PQ.forEach((p, i) => {
   const n = i + 1;
+  const invertida = PREGUNTAS_NO_ES_CORRECTO.includes(n);
+  const claseSi = invertida ? 'qo no-s' : 'qo';
+  const claseNo = invertida ? 'qo ok-s' : 'qo no-s';
   pDiv.innerHTML += `
   <div class="qi">
     <div class="qtxt"><span class="qn">0${n}.</span>${p}</div>
     <div class="qopts">
-      <label class="qo">
+      <label class="${claseSi}">
         <input type="radio" name="q${n}" value="Sí">
         <i class="ti ti-check" style="font-size:15px"></i> Sí
       </label>
-      <label class="qo no-s">
+      <label class="${claseNo}">
         <input type="radio" name="q${n}" value="No">
         <i class="ti ti-x" style="font-size:15px"></i> No
       </label>
@@ -1323,7 +1334,7 @@ function actualizarPreguntasUX(){
     const el = document.querySelector(`input[name="q${i}"]:checked`);
     if (el) respondidas++;
     const v = el ? el.value : '';
-    if ((i === 1 && v === 'No') || (i === 2 && v === 'No') || (i === 4 && v === 'Sí') || (i === 5 && v === 'Sí') || (i === 6 && v === 'No')) riesgos.push(i);
+    if ((i === 1 && v === 'No') || (i === 2 && v === 'No') || (i === 3 && v === 'Sí') || (i === 4 && v === 'Sí') || (i === 5 && v === 'Sí') || (i === 6 && v === 'No')) riesgos.push(i);
   }
   const counter = document.getElementById('qCounter');
   const meter = document.getElementById('qMeterFill');
@@ -1739,13 +1750,19 @@ function generarPDF() {
     "¿Ha completado su capacitación de manejo defensivo vigente?"
   ];
   const ans = [d.q1, d.q2, d.q3, d.q4, d.q5, d.q6, d.q7];
+  // P3 (índice 2 → pregunta n=3): "No" es la respuesta correcta/segura → verde.
+  const PREGUNTAS_NO_ES_CORRECTO_PDF = [3];
 
   const qRows = PQ.map((p, i) => {
-    const r  = ans[i] || '—';
-    const bg = r === 'Sí' ? '#f0fdf4' : r === 'No' ? '#fff5f5' : '#fff';
-    const fc = r === 'Sí' ? '#15803d'  : r === 'No' ? '#b91c1c'  : '#64748b';
+    const n = i + 1;
+    const r = ans[i] || '—';
+    const invertida = PREGUNTAS_NO_ES_CORRECTO_PDF.includes(n);
+    const esBueno = invertida ? r === 'No' : r === 'Sí';
+    const esMalo  = invertida ? r === 'Sí' : r === 'No';
+    const bg = esBueno ? '#f0fdf4' : esMalo ? '#fff5f5' : '#fff';
+    const fc = esBueno ? '#15803d' : esMalo ? '#b91c1c' : '#64748b';
     return `<tr style="background:${bg}">
-      <td class="qn">${i + 1}</td>
+      <td class="qn">${n}</td>
       <td class="qt"><strong>${p}</strong></td>
       <td class="qa" style="color:${fc}"><strong>${r}</strong></td>
     </tr>`;

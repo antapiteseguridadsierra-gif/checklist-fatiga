@@ -801,6 +801,63 @@ canvas.sig.touched + .sig-placeholder{display:none;}
 }
 @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;}}
+
+/* ── MINI JUEGOS (pausa mental) ──────────── */
+.card-juegos{border-color:#fde68a;background:linear-gradient(145deg,#fffbeb,#fffef8);}
+.jg-opt{margin-left:auto;font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:#92400e;background:rgba(245,158,11,.15);border-radius:99px;padding:4px 10px;}
+.jg-intro{font-size:12px;color:var(--sub);line-height:1.6;margin:-2px 0 12px;}
+.jg-tabs{display:flex;gap:8px;margin-bottom:12px;}
+.jg-tab{flex:1;font:inherit;font-size:12px;font-weight:700;padding:10px 6px;border-radius:12px;border:1.5px solid #e2e8f0;background:#fff;color:var(--sub);cursor:pointer;transition:all .2s;}
+.jg-tab.active{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(2,13,26,.18);}
+.jg-pane{display:none;}
+.jg-pane.active{display:block;animation:fadeD .25s ease;}
+.jg-info{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11.5px;color:var(--sub);margin-bottom:10px;line-height:1.5;}
+.jg-info b{color:var(--text);white-space:nowrap;}
+.jg-seq{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px;margin:6px 0 14px;}
+.jg-cell{min-width:46px;padding:10px 8px;border-radius:12px;background:#fff;border:1.5px solid #e2e8f0;font-weight:800;font-size:17px;color:var(--text);text-align:center;}
+.jg-cell.jg-q{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;border-color:transparent;}
+.jg-arrow{color:#94a3b8;font-style:normal;font-weight:800;}
+.jg-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.jg-opt-btn{font:inherit;font-size:17px;font-weight:800;padding:13px 8px;border-radius:13px;border:1.5px solid #cbd5e1;background:#fff;color:var(--text);cursor:pointer;transition:transform .12s,background .2s,border-color .2s;}
+.jg-opt-btn:active{transform:scale(.96);}
+.jg-opt-btn.good{background:#dcfce7;border-color:#22c55e;color:#166534;}
+.jg-opt-btn.bad{background:#fee2e2;border-color:#ef4444;color:#991b1b;}
+.jg-final{text-align:center;padding:14px 6px;}
+.jg-final .big{font-size:34px;line-height:1.1;}
+.jg-final p{font-size:13px;color:var(--text);margin:8px 0 12px;font-weight:700;}
+.jg-puz{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:200px;margin:0 auto 10px;}
+.jg-tile{aspect-ratio:1/1;font:inherit;font-size:40px;font-weight:800;border-radius:14px;border:none;color:#fff;background:linear-gradient(135deg,var(--navy),var(--navy2));box-shadow:0 6px 14px rgba(2,13,26,.18);cursor:pointer;transition:transform .12s;}
+.jg-tile:active{transform:scale(.94);}
+.jg-tile.empty{background:transparent;box-shadow:none;border:2px dashed #cbd5e1;cursor:default;}
+.jg-tile.ok-pos{background:linear-gradient(135deg,var(--emerald),var(--emerald2));}
+.jg-msg{min-height:20px;text-align:center;font-size:13px;font-weight:800;color:#166534;margin:4px 0 8px;}
+.jg-btn{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 auto;font:inherit;font-size:12px;font-weight:700;padding:10px 16px;border-radius:12px;border:1.5px solid #cbd5e1;background:#fff;color:var(--text);cursor:pointer;}
+.jg-opt.req{color:#991b1b;background:rgba(239,68,68,.12);}
+.jg-tab.done::after{content:" ✓";color:#22c55e;font-weight:900;}
+.jg-tab.active.done::after{color:#86efac;}
+.jg-cell.big{font-size:30px;min-width:58px;padding:12px 8px;}
+.jg-opt-btn.big{font-size:30px;padding:14px 8px;}
+.jg-opt-btn.shake{animation:jgShake .4s;border-color:#ef4444;background:#fee2e2;}
+@keyframes jgShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+
+/* ── MENSAJE FLOTANTE ANTI-FATIGA (tipo SMS) ── */
+.sms-bg{position:fixed;inset:0;z-index:100000;background:rgba(2,13,26,.78);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:16px;overscroll-behavior:contain;}
+.sms-box{width:100%;max-width:400px;max-height:94vh;overflow:auto;background:#f1f5f9;border-radius:24px;padding:16px;box-shadow:0 30px 70px rgba(0,0,0,.45);animation:smsIn .35s cubic-bezier(.2,.9,.3,1.2);}
+@keyframes smsIn{from{opacity:0;transform:translateY(30px) scale(.94)}to{opacity:1;transform:none}}
+.sms-top{display:flex;align-items:center;gap:11px;margin-bottom:12px;}
+.sms-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy2));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.sms-top strong{display:block;font-size:13px;color:var(--text);}
+.sms-top span{font-size:11px;color:var(--sub);}
+.sms-bubble{background:#fff;border-radius:6px 20px 20px 20px;padding:15px 16px;box-shadow:0 2px 10px rgba(0,0,0,.08);}
+.sms-bubble h4{font-size:14px;font-weight:800;color:#78350f;margin-bottom:6px;}
+.sms-bubble p{font-size:12.5px;color:var(--text);line-height:1.6;margin-bottom:8px;}
+.sms-list{margin:0 0 10px 18px;padding:0;font-size:12.5px;color:var(--text);line-height:1.55;}
+.sms-list li{margin-bottom:6px;padding-left:2px;}
+.sms-foot{margin:0!important;padding-top:8px;border-top:1px solid #e2e8f0;font-size:12px!important;color:var(--sub)!important;}
+.sms-bar{height:5px;border-radius:99px;background:#e2e8f0;overflow:hidden;margin:14px 0 10px;}
+.sms-bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));}
+.sms-btn{width:100%;font:inherit;font-size:14px;font-weight:800;padding:14px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--navy),var(--navy2),var(--blue2));color:#fff;cursor:pointer;}
+.sms-btn:disabled{opacity:.55;cursor:not-allowed;}
 </style>
 </head>
 <body>
@@ -1190,29 +1247,28 @@ canvas.sig.touched + .sig-placeholder{display:none;}
     </div>
   </div>
 
-  <div class="card card-fatiga">
+  <div class="card card-juegos" id="juegosCard">
     <div class="ct">
-      <div class="ct-ic" style="background:linear-gradient(135deg,var(--gold),var(--gold2))"><i class="ti ti-heart-rate-monitor"></i></div>
-      <span style="color:var(--text)">Protocolo Anti-Fatiga al Conducir</span>
+      <div class="ct-ic" style="background:linear-gradient(135deg,var(--gold),var(--gold2))"><i class="ti ti-puzzle"></i></div>
+      <span style="color:var(--text)">Pausa mental rápida</span>
+      <span class="jg-opt req">Obligatorio</span>
     </div>
-    <div class="fatiga-header">
-      <div class="fatiga-header-ic">⚠️</div>
-      <div class="fatiga-header-txt">
-        <strong>¿Sientes cansancio o somnolencia mientras conduces?</strong>
-        <span>Aplica de inmediato el siguiente protocolo. Tu vida y la de tus compañeros depende de ello.</span>
-      </div>
+    <p class="jg-intro">Completa los <strong>2 juegos</strong> (son muy fáciles) para poder enviar. <strong>No cambia tu registro</strong>.</p>
+    <div class="jg-tabs" role="tablist">
+      <button type="button" class="jg-tab active" data-g="sec" id="tab-sec">🔢 Secuencia</button>
+      <button type="button" class="jg-tab" data-g="puz" id="tab-puz">🧩 Puzzle</button>
     </div>
-    <div class="fatiga-grid">
-      <div class="fi"><div class="fi-ic fi-ic-1"><i class="ti ti-player-pause"></i></div><strong>Detente ya</strong><span>Estaciona, enciende emergencias e informa a tu supervisor.</span></div>
-      <div class="fi"><div class="fi-ic fi-ic-2"><i class="ti ti-clock"></i></div><strong>Pausa c/2 horas</strong><span>5–10 min de descanso activo: baja, estira y mueve el cuerpo.</span></div>
-      <div class="fi"><div class="fi-ic fi-ic-3"><i class="ti ti-droplet"></i></div><strong>Hidratación</strong><span>Agua cada 30 minutos. Evita bebidas energizantes en exceso.</span></div>
-      <div class="fi"><div class="fi-ic fi-ic-4"><i class="ti ti-wind"></i></div><strong>Respira y muévete</strong><span>5 respiraciones profundas. Gira cuello y mueve hombros.</span></div>
-      <div class="fi"><div class="fi-ic fi-ic-5"><i class="ti ti-eye"></i></div><strong>Descansa la vista</strong><span>Mira a lo lejos c/20 min. Parabrisas siempre limpio.</span></div>
-      <div class="fi"><div class="fi-ic fi-ic-6"><i class="ti ti-phone-call"></i></div><strong>Comunica tu estado</strong><span>Reportar no es falla, es responsabilidad. Llama al 969 589 097.</span></div>
+
+    <div class="jg-pane active" id="jg-sec">
+      <div class="jg-info" id="sec-info"></div>
+      <div id="sec-body"></div>
     </div>
-    <div class="fatiga-footer">
-      <i class="ti ti-shield-check"></i>
-      Tu vida vale más que cualquier tarea. <strong>Descansa cuando lo necesites.</strong>
+
+    <div class="jg-pane" id="jg-puz">
+      <div class="jg-info"><span>Acomoda las fichas en orden: <b>1, 2, 3</b>. Toca una ficha junto al espacio vacío.</span><b id="pz-mov">0 mov.</b></div>
+      <div class="jg-puz" id="pz-grid"></div>
+      <div class="jg-msg" id="pz-msg"></div>
+      <button type="button" class="jg-btn" id="pz-new"><i class="ti ti-refresh"></i> Mezclar de nuevo</button>
     </div>
   </div>
 
@@ -1247,6 +1303,31 @@ canvas.sig.touched + .sig-placeholder{display:none;}
   <i class="ti ti-headset"></i>
   <div><strong>Soporte / Control</strong><span>969 589 097</span></div>
 </a>
+
+<!-- MENSAJE FLOTANTE: PROTOCOLO ANTI-FATIGA (aparece al enviar; sin cierre hasta terminar la lectura) -->
+<div class="sms-bg" id="smsFatiga" style="display:none" role="alertdialog" aria-modal="true" aria-labelledby="smsTit">
+  <div class="sms-box">
+    <div class="sms-top">
+      <div class="sms-av">🛡️</div>
+      <div><strong>SSO · Sierra Antapite</strong><span>Mensaje de seguridad · ahora</span></div>
+    </div>
+    <div class="sms-bubble">
+      <h4 id="smsTit">⚠️ Protocolo Anti-Fatiga al Conducir</h4>
+      <p>¿Sientes cansancio o somnolencia mientras conduces? Aplica de inmediato:</p>
+      <ol class="sms-list">
+        <li><strong>Detente ya.</strong> Estaciona, enciende emergencias e informa a tu supervisor.</li>
+        <li><strong>Pausa c/2 horas.</strong> 5–10 min de descanso activo: baja, estira y mueve el cuerpo.</li>
+        <li><strong>Hidratación.</strong> Agua cada 30 minutos. Evita bebidas energizantes en exceso.</li>
+        <li><strong>Respira y muévete.</strong> 5 respiraciones profundas. Gira cuello y mueve hombros.</li>
+        <li><strong>Descansa la vista.</strong> Mira a lo lejos c/20 min. Parabrisas siempre limpio.</li>
+        <li><strong>Comunica tu estado.</strong> Reportar no es falla, es responsabilidad. Llama al 969 589 097.</li>
+      </ol>
+      <p class="sms-foot">Tu vida vale más que cualquier tarea. <strong>Descansa cuando lo necesites.</strong></p>
+    </div>
+    <div class="sms-bar"><div class="sms-bar-fill" id="smsBarFill"></div></div>
+    <button type="button" class="sms-btn" id="smsBtn" disabled>Leyendo mensaje…</button>
+  </div>
+</div>
 
 <!-- MODAL -->
 <div class="modal-bg" id="modal" style="display:none" onclick="cerrarModal(event)">
@@ -1303,17 +1384,32 @@ const PQ = [
   "¿Ha completado su capacitación de manejo defensivo vigente?"                     // q7
 ];
 const pDiv = document.getElementById('preguntas');
-// P3 (actualizada): la respuesta correcta/segura es "No" → se resalta en VERDE.
+// P3: la respuesta correcta/segura es "No" → se resalta en VERDE.
 // "Sí" en P3 pasa a ser la opción de riesgo → se resalta en ROJO.
 const PREGUNTAS_NO_ES_CORRECTO = [3];
-PQ.forEach((p, i) => {
-  const n = i + 1;
-  const invertida = PREGUNTAS_NO_ES_CORRECTO.includes(n);
-  const claseSi = invertida ? 'qo no-s' : 'qo';
-  const claseNo = invertida ? 'qo ok-s' : 'qo no-s';
-  pDiv.innerHTML += `
-  <div class="qi">
-    <div class="qtxt"><span class="qn">0${n}.</span>${p}</div>
+
+// ── ORDEN ALEATORIO ───────────────────────────────────────────
+// Solo cambia el ORDEN EN PANTALLA. Cada pregunta conserva su identidad
+// (name="q1"…"q7"), por eso lo que llega a Google Sheets y al PDF
+// siempre va en el mismo orden P1…P7, sin importar cómo se vea.
+let ordenPreguntas = [];          // ordenPreguntas[posición en pantalla] = n.º real de pregunta
+function barajar(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function renderPreguntas(){
+  ordenPreguntas = barajar(PQ.map((_, i) => i + 1));
+  pDiv.innerHTML = ordenPreguntas.map((n, pos) => {
+    const invertida = PREGUNTAS_NO_ES_CORRECTO.includes(n);
+    const claseSi = invertida ? 'qo no-s' : 'qo';
+    const claseNo = invertida ? 'qo ok-s' : 'qo no-s';
+    return `
+  <div class="qi" data-q="${n}">
+    <div class="qtxt"><span class="qn">0${pos + 1}.</span>${PQ[n - 1]}</div>
     <div class="qopts">
       <label class="${claseSi}">
         <input type="radio" name="q${n}" value="Sí">
@@ -1325,7 +1421,9 @@ PQ.forEach((p, i) => {
       </label>
     </div>
   </div>`;
-});
+  }).join('');
+  actualizarPreguntasUX();
+}
 
 function actualizarPreguntasUX(){
   let respondidas = 0;
@@ -1334,7 +1432,7 @@ function actualizarPreguntasUX(){
     const el = document.querySelector(`input[name="q${i}"]:checked`);
     if (el) respondidas++;
     const v = el ? el.value : '';
-    if ((i === 1 && v === 'No') || (i === 2 && v === 'No') || (i === 3 && v === 'Sí') || (i === 4 && v === 'Sí') || (i === 5 && v === 'Sí') || (i === 6 && v === 'No')) riesgos.push(i);
+    if ((i === 1 && v === 'No') || (i === 2 && v === 'No') || (i === 3 && v === 'Sí') || (i === 4 && v === 'Sí') || (i === 5 && v === 'Sí') || (i === 6 && v === 'No')) riesgos.push(ordenPreguntas.indexOf(i) + 1);
   }
   const counter = document.getElementById('qCounter');
   const meter = document.getElementById('qMeterFill');
@@ -1345,7 +1443,7 @@ function actualizarPreguntasUX(){
   if (risk) {
     if (riesgos.length) {
       risk.classList.add('show');
-      if (riskTxt) riskTxt.textContent = `Revise las preguntas ${riesgos.join(', ')}. Si existe fatiga, malestar, consumo de alcohol/drogas o unidad no inspeccionada, debe reportarse antes de conducir.`;
+      if (riskTxt) riskTxt.textContent = `Revise las preguntas ${riesgos.slice().sort((a, b) => a - b).join(', ')}. Si existe fatiga, malestar, consumo de alcohol/drogas o unidad no inspeccionada, debe reportarse antes de conducir.`;
     } else risk.classList.remove('show');
   }
 }
@@ -1353,7 +1451,7 @@ document.addEventListener('change', e => {
   if (e.target && e.target.matches('input[type="radio"]')) actualizarPreguntasUX();
   if (e.target && e.target.matches('input,select,textarea')) e.target.classList.toggle('input-ok', !!e.target.value.trim());
 });
-actualizarPreguntasUX();
+renderPreguntas();
 
 // ── RESTRICCIÓN 10 HORAS ─────────────────────────────────────
 const LIMITE_HORAS = 10;
@@ -1429,6 +1527,7 @@ function mostrarExito(){
   document.getElementById('succScreen').classList.add('show');
   lanzarConfetti();
   window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(mostrarProtocoloFatiga, 700);
 }
 let paso = 1;
 const IC = ['ti ti-user','ti ti-clipboard-list','ti ti-writing'];
@@ -1445,6 +1544,7 @@ function irA(n) {
       return;
     }
   }
+  if (n === 2 && paso === 1 && !document.querySelector('#preguntas input:checked')) renderPreguntas();
   document.getElementById('p' + paso).classList.remove('active');
   paso = n;
   document.getElementById('p' + paso).classList.add('active');
@@ -1531,10 +1631,13 @@ function validar(s) {
     return true;
   }
   if (s === 2) {
-    for (let i = 1; i <= 7; i++) {
+    for (const i of ordenPreguntas) {
       if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+        const pos = ordenPreguntas.indexOf(i) + 1;
         mostrarModal('📋','Pregunta sin responder',
-          `Responde la pregunta ${i} antes de continuar.`);
+          `Responde la pregunta ${pos} antes de continuar.`);
+        const bloque = document.querySelector(`.qi[data-q="${i}"]`);
+        if (bloque) bloque.scrollIntoView({ behavior:'smooth', block:'center' });
         return false;
       }
     }
@@ -1660,6 +1763,12 @@ async function enviar() {
     mostrarModal('✍️','Firma requerida','El conductor debe firmar antes de enviar.');
     return;
   }
+  const falta = pausaMentalFalta();
+  if (falta) {
+    mostrarModal('🧩','Completa la pausa mental','Antes de enviar, termina el juego de ' + falta + '. Es muy sencillo.');
+    document.getElementById('juegosCard').scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
   const btn  = document.getElementById('btnEnviar');
   const sp   = document.getElementById('spin');
   const btxt = document.getElementById('btxt');
@@ -1737,11 +1846,156 @@ function getR(name) {
   return el ? el.value : 'Sin respuesta';
 }
 
+// ═══════════════════════════════════════════════════════════════
+//  MINI JUEGOS · Pausa mental OBLIGATORIA y muy básica (nivel jardín)
+//  Solo visual: NO toca los datos que se envían a Google Sheets.
+// ═══════════════════════════════════════════════════════════════
+let secOK = false, puzOK = false;
+function pausaMentalFalta(){
+  const tab = g => document.querySelector('.jg-tab[data-g="' + g + '"]');
+  if (!secOK) { tab('sec').click(); return 'Secuencia'; }
+  if (!puzOK) { tab('puz').click(); return 'Puzzle'; }
+  return '';
+}
+(function(){
+  const $ = id => document.getElementById(id);
+  const rnd = n => Math.floor(Math.random() * n);
+  const mezclar = a => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = rnd(i + 1); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+
+  document.querySelectorAll('.jg-tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.jg-tab').forEach(x => x.classList.toggle('active', x === t));
+    document.querySelectorAll('.jg-pane').forEach(p => p.classList.toggle('active', p.id === 'jg-' + t.dataset.g));
+  }));
+
+  // ── 1) SECUENCIA (lo más básico): 3 rondas, 3 opciones, se puede reintentar ──
+  const SEQS = [
+    {s:['1','2','3'],         a:'4',  o:['4','7','9']},
+    {s:['5','6','7'],         a:'8',  o:['8','3','1']},
+    {s:['🔴','🔵','🔴','🔵'], a:'🔴', o:['🔴','🔵','🟢']},
+    {s:['⭐','🌙','⭐','🌙'], a:'⭐', o:['⭐','🌙','☀️']},
+    {s:['🍎','🍎','🍌','🍎','🍎'], a:'🍌', o:['🍌','🍎','🍇']}
+  ];
+  const RONDAS = 3;
+  let cola = [], ronda = 0, bloq = false;
+  function secNueva(){ cola = mezclar(SEQS).slice(0, RONDAS); ronda = 0; bloq = false; secMostrar(); }
+  function secMostrar(){
+    const box = $('sec-body'), info = $('sec-info');
+    if (ronda >= cola.length) {
+      secOK = true;
+      $('tab-sec').classList.add('done');
+      info.innerHTML = '<span>Secuencia completada</span><b>' + RONDAS + '/' + RONDAS + '</b>';
+      box.innerHTML = '<div class="jg-final"><div class="big">🎉</div><p>¡Muy bien!</p></div>';
+      return;
+    }
+    info.innerHTML = '<span>¿Qué sigue? Toca la respuesta correcta.</span><b>' + (ronda + 1) + '/' + RONDAS + '</b>';
+    const q = cola[ronda];
+    box.innerHTML = '<div class="jg-seq">' + q.s.map(x => '<span class="jg-cell big">' + x + '</span>').join('') +
+      '<span class="jg-cell big jg-q">?</span></div><div class="jg-opts" style="grid-template-columns:repeat(3,1fr)">' +
+      mezclar(q.o).map(o => '<button type="button" class="jg-opt-btn big" data-v="' + o + '">' + o + '</button>').join('') + '</div>';
+    box.querySelectorAll('.jg-opt-btn').forEach(b => b.addEventListener('click', () => {
+      if (bloq) return;
+      if (b.dataset.v === q.a) {
+        bloq = true; b.classList.add('good');
+        setTimeout(() => { ronda++; bloq = false; secMostrar(); }, 700);
+      } else {
+        b.classList.add('shake');
+        setTimeout(() => b.classList.remove('shake'), 450);
+      }
+    }));
+  }
+
+  // ── 2) PUZZLE (lo más básico): 2×2 con fichas 1-2-3, se arma en pocos toques ──
+  let pz = [], pzMov = 0, pzGano = false;
+  const pzVecinos = i => { const r = i >> 1, c = i & 1, v = []; if (r === 1) v.push(i - 2); else v.push(i + 2); if (c === 1) v.push(i - 1); else v.push(i + 1); return v; };
+  const pzResuelto = () => pz.every((v, i) => v === (i === 3 ? 0 : i + 1));
+  function pzNuevo(){
+    do {
+      pz = [1, 2, 3, 0];
+      let blank = 3, prev = -1;
+      const pasos = 2 + rnd(2);                 // 2 o 3 movimientos desde lo resuelto → siempre fácil
+      for (let k = 0; k < pasos; k++) {
+        const v = pzVecinos(blank).filter(x => x !== prev);
+        const nx = v[rnd(v.length)];
+        [pz[blank], pz[nx]] = [pz[nx], pz[blank]];
+        prev = blank; blank = nx;
+      }
+    } while (pzResuelto());
+    pzMov = 0; pzGano = false;
+    $('pz-msg').textContent = '';
+    pzDibujar();
+  }
+  function pzDibujar(){
+    $('pz-mov').textContent = pzMov + ' mov.';
+    $('pz-grid').innerHTML = pz.map((v, i) =>
+      '<button type="button" class="jg-tile' + (v === 0 ? ' empty' : (v === i + 1 ? ' ok-pos' : '')) + '" data-i="' + i + '"' + (v === 0 ? ' tabindex="-1" aria-hidden="true"' : '') + '>' + (v || '') + '</button>').join('');
+  }
+  $('pz-grid').addEventListener('click', e => {
+    const t = e.target.closest('.jg-tile'); if (!t || pzGano) return;
+    const i = +t.dataset.i, b = pz.indexOf(0);
+    if (!pzVecinos(i).includes(b)) return;
+    [pz[i], pz[b]] = [pz[b], pz[i]];
+    pzMov++;
+    pzDibujar();
+    if (pzResuelto()) {
+      pzGano = true; puzOK = true;
+      $('tab-puz').classList.add('done');
+      $('pz-msg').textContent = '🎉 ¡Muy bien!';
+    }
+  });
+  $('pz-new').addEventListener('click', () => { if (!pzGano) pzNuevo(); });
+
+  secNueva(); pzNuevo();
+})();
+
+// ═══════════════════════════════════════════════════════════════
+//  MENSAJE FLOTANTE · Protocolo Anti-Fatiga (se muestra al enviar)
+//  Sin interrupciones: no se cierra con clic fuera ni con Esc;
+//  el botón se habilita al terminar el tiempo de lectura.
+// ═══════════════════════════════════════════════════════════════
+const SMS_SEGUNDOS = 8;
+let smsActivo = false;
+function mostrarProtocoloFatiga(){
+  const bg = document.getElementById('smsFatiga');
+  const btn = document.getElementById('smsBtn');
+  const fill = document.getElementById('smsBarFill');
+  if (!bg || smsActivo) return;
+  smsActivo = true;
+  bg.style.display = 'flex';
+  document.documentElement.style.overflow = 'hidden';
+  document.body.style.overflow = 'hidden';
+  btn.disabled = true;
+  fill.style.transition = 'none'; fill.style.width = '0%';
+  void fill.offsetWidth;
+  fill.style.transition = 'width ' + SMS_SEGUNDOS + 's linear'; fill.style.width = '100%';
+  let resto = SMS_SEGUNDOS;
+  btn.textContent = 'Leyendo mensaje… ' + resto + ' s';
+  const t = setInterval(() => {
+    resto--;
+    if (resto > 0) { btn.textContent = 'Leyendo mensaje… ' + resto + ' s'; return; }
+    clearInterval(t);
+    btn.disabled = false;
+    btn.textContent = 'Entendido, conduciré con precaución';
+    btn.focus();
+  }, 1000);
+  btn.onclick = () => {
+    if (btn.disabled) return;
+    bg.style.display = 'none';
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+    smsActivo = false;
+  };
+}
+// bloquear Esc / Tab mientras el mensaje está activo
+document.addEventListener('keydown', e => {
+  if (!smsActivo) return;
+  if (e.key === 'Escape' || e.key === 'Tab') { e.preventDefault(); e.stopPropagation(); }
+}, true);
+
 // ── GENERAR PDF DEL CHECKLIST (1 hoja · 11pt · Arial Narrow) ────
 function generarPDF() {
   const d = pdfData;
   const PQ = [
-    "¿Descansó correctamente antes de su turno (mínimo 6 - 8 horas continuas)??",
+    "¿Descansó correctamente antes de su turno (mínimo 6 - 8 horas continuas)?",
     "¿Se encuentra en buen estado físico y mental para conducir?",
     "¿Usted consume actualmente algún medicamento que le produce sueño o somnolencia?",
     "¿Ha consumido alcohol o drogas en las últimas 12 horas?",

@@ -38,7 +38,7 @@ body.alert-red .bg-red{opacity:1;}
 @keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-40px)}}
 .home-ind{position:fixed;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:99px;background:rgba(255,255,255,.55);z-index:9990;pointer-events:none;}
 
-/* ── ISLA DINÁMICA (RELOJ 2:30) ──────────── */
+/* ── ISLA DINÁMICA (RELOJ 3:00) ──────────── */
 .island{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:9996;display:flex;align-items:center;gap:10px;background:#000;color:#fff;border-radius:999px;padding:7px 20px 7px 8px;box-shadow:0 12px 32px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.12);transition:opacity .4s,transform .45s cubic-bezier(.2,.9,.3,1.2);}
 .island.off{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(-30px) scale(.8);}
 .island svg{width:34px;height:34px;transform:rotate(-90deg);flex-shrink:0;}
@@ -378,10 +378,10 @@ canvas.sig.touched + .sig-placeholder{display:none;}
 </div>
 <div class="home-ind"></div>
 
-<!-- ISLA DINÁMICA · RELOJ GLOBAL 2:30 -->
+<!-- ISLA DINÁMICA · RELOJ GLOBAL 3:00 -->
 <div class="island" id="island">
   <svg viewBox="0 0 28 28"><circle class="trk" cx="14" cy="14" r="11" fill="none" stroke-width="3.5"/><circle class="prg" id="isRing" cx="14" cy="14" r="11" fill="none" stroke-width="3.5" stroke-linecap="round"/></svg>
-  <div><b id="isTime">2:30</b><small id="isLbl">Inicia al empezar</small></div>
+  <div><b id="isTime">3:00</b><small id="isLbl">Inicia al empezar</small></div>
 </div>
 
 <div class="app">
@@ -450,7 +450,7 @@ canvas.sig.touched + .sig-placeholder{display:none;}
 
     <div class="na-second" id="naSegunda">
       <h4><i class="ti ti-rotate-clockwise-2"></i> 2.ª opción: segunda oportunidad</h4>
-      <p>Puede volver a responder <b>una sola vez</b>: preguntas, reto de atención y firma. Tendrá <b>2:30 min</b> y las preguntas cambiarán de orden. <b>Solo se registrará el resultado final.</b></p>
+      <p>Puede volver a responder <b>una sola vez</b>: preguntas, reto de atención y firma. Tendrá <b>3:00 min</b> y las preguntas cambiarán de orden. <b>Solo se registrará el resultado final.</b></p>
       <button class="na-retry" onclick="segundoIntento()"><i class="ti ti-player-play-filled"></i> Responder de nuevo</button>
       <button class="na-end" onclick="terminarNoApto()"><i class="ti ti-device-floppy"></i> No, registrar este resultado</button>
     </div>
@@ -816,10 +816,10 @@ document.getElementById('dni').addEventListener('input', function(){
 });
 
 // ═══════════════════════════════════════════════════════════════
-//  RELOJ GLOBAL · MÁXIMO 2:30 MIN PARA TODO (incluye el reto)
+//  RELOJ GLOBAL · MÁXIMO 3:00 MIN PARA TODO (incluye el reto)
 //  Cambia TIEMPO_TOTAL si algún día necesitas otro límite (en segundos).
 // ═══════════════════════════════════════════════════════════════
-const TIEMPO_TOTAL = 150;   // 2 min 30 s
+const TIEMPO_TOTAL = 180;   // 3 min 0 s
 const island = document.getElementById('island');
 const isRing = document.getElementById('isRing');
 const isTime = document.getElementById('isTime');
@@ -1268,7 +1268,7 @@ function mostrarNoApto(r){
   document.body.classList.add('alert-red');
   const ul = document.getElementById('naMotivos');
   if (r.timeout){
-    ul.innerHTML = '<li><i class="ti ti-hourglass-off"></i><div>Se agotó el tiempo de la segunda oportunidad (2:30 min).</div></li>';
+    ul.innerHTML = '<li><i class="ti ti-hourglass-off"></i><div>Se agotó el tiempo de la segunda oportunidad (3:00 min).</div></li>';
   } else {
     ul.innerHTML = [...r.criticas, ...r.obs].map(n =>
       `<li><i class="ti ti-alert-octagon"></i><div>${PQ[n-1]}<b>Respondió: ${RIESGO[n]}</b></div></li>`).join('');

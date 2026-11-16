@@ -98,29 +98,19 @@ body.alert-red .bg-red{opacity:1;}
 .g3 .field:first-child{grid-column:1/-1;}
 @media(max-width:520px){.g2,.g3{grid-template-columns:1fr;}}
 
-/* ── DNI ─────────────────────────────────── */
+/* ── DNI (manual) ────────────────────────── */
 .dni-wrap{background:rgba(10,132,255,.08);border:1.5px solid rgba(10,132,255,.22);border-radius:22px;padding:16px;margin-bottom:16px;}
 .dni-title{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:14px;font-weight:700;color:var(--blue2);letter-spacing:.6px;text-transform:uppercase;margin-bottom:12px;}
 .dni-mini{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;background:rgba(10,132,255,.12);font-size:12px;color:var(--blue2);}
-.dni-row{display:flex;gap:10px;align-items:flex-end;}
-.dni-row .field{flex:1;margin-bottom:0;}
-.dni-actions{display:flex;gap:8px;align-items:stretch;}
 .dni-st{font-size:14px;margin-top:8px;min-height:18px;padding-left:2px;color:var(--blue);}
 .dok{color:var(--green2)!important;}
 .derr{color:var(--red2)!important;}
-.dni-result{display:none;margin-top:12px;}
-.dni-result.show{display:flex;gap:12px;align-items:center;background:#fff;border:1.5px solid rgba(48,209,88,.45);border-radius:18px;padding:13px 15px;animation:panelIn .3s ease;}
-.dni-result-av{width:48px;height:48px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--green),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;}
-.dni-result-info strong{display:block;font-size:17px;color:var(--ink);}
-.dni-result-info span{font-size:13px;color:var(--sub);}
 
 /* ── BOTONES ─────────────────────────────── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 20px;border-radius:15px;font-size:16px;font-weight:700;cursor:pointer;border:none;transition:transform .15s,filter .2s;letter-spacing:.2px;white-space:nowrap;}
 .btn:active{transform:scale(.96);}
-.btn-gd{background:linear-gradient(145deg,#3b9bff,var(--blue2));color:#fff;box-shadow:0 6px 18px rgba(10,132,255,.4);}
 .btn-ol{background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.4);color:#fff;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);}
 .btn-gh{background:var(--fill);color:var(--sub);font-size:14px;padding:10px 16px;}
-.btn-manual{background:#fff;color:var(--blue2);border:1.5px solid rgba(10,132,255,.25);}
 .btn:disabled{opacity:.45;cursor:not-allowed;}
 .btn-next{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:18px 26px;border-radius:22px;font-size:20px;font-weight:700;background:linear-gradient(180deg,#fff,#e6efff);color:var(--ink);border:none;cursor:pointer;box-shadow:0 14px 34px rgba(0,0,0,.32),inset 0 -2px 0 rgba(10,132,255,.15);transition:transform .15s,opacity .2s;}
 .btn-next:active{transform:scale(.97);}
@@ -323,6 +313,11 @@ canvas.sig.touched + .sig-placeholder{display:none;}
 .sms-result.ok{background:#e9fbf0;border-color:var(--green);color:#065f2c;}
 .sms-result.obs{background:#fff6e0;border-color:var(--gold);color:#7a4600;}
 .sms-result.no{background:#ffecea;border-color:var(--red);color:#8f0a14;}
+.sms-sync{display:none;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:16px;margin-bottom:12px;font-size:15px;line-height:1.35;border:2px solid;}
+.sms-sync.show{display:flex;}
+.sms-sync i{font-size:24px;flex-shrink:0;}
+.sms-sync.ok{background:#e9fbf0;border-color:var(--green);color:#065f2c;}
+.sms-sync.wait{background:#fff6e0;border-color:var(--gold);color:#7a4600;}
 
 /* ── SOPORTE LATERAL ─────────────────────── */
 .sos{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:9997;display:flex;align-items:stretch;}
@@ -348,6 +343,12 @@ canvas.sig.touched + .sig-placeholder{display:none;}
 .rest-alert-txt span{display:block;font-size:14px;color:#8a5200;line-height:1.35;}
 .rest-timer{display:inline-flex;align-items:center;gap:5px;margin-top:7px;padding:5px 12px;border-radius:999px;background:rgba(255,176,32,.25);font-size:14px;color:#7a4600;}
 
+/* ── INDICADOR: SIN INTERNET / PENDIENTES ── */
+.pend{position:fixed;left:12px;bottom:22px;z-index:9995;display:none;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:rgba(255,176,32,.96);color:#4a2c00;font-size:14px;line-height:1.2;max-width:calc(100% - 90px);box-shadow:0 8px 24px rgba(0,0,0,.35);cursor:pointer;}
+.pend.show{display:flex;}
+.pend.off{background:rgba(255,59,48,.96);color:#fff;}
+.pend i{font-size:18px;flex-shrink:0;}
+
 /* ── PWA ─────────────────────────────────── */
 .pwa-banner{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:9998;background:rgba(0,0,0,.85);border:1px solid rgba(255,255,255,.2);border-radius:24px;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 12px 44px rgba(0,0,0,.5);max-width:400px;width:calc(100% - 28px);animation:slideUp .4s ease;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);}
 .pwa-banner.hidden{display:none;}
@@ -360,12 +361,7 @@ canvas.sig.touched + .sig-placeholder{display:none;}
 .pwa-btn-dismiss{background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);border-radius:12px;padding:6px 14px;font-size:13px;cursor:pointer;}
 @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
 
-@media(max-width:520px){
-  .dni-row{flex-direction:column;align-items:stretch;}
-  .dni-actions{display:grid;grid-template-columns:1fr 1fr;}
-  .btn-manual,.btn-gd{width:100%;}
-  .card{padding:18px 15px;border-radius:28px;}
-}
+@media(max-width:520px){ .card{padding:18px 15px;border-radius:28px;} }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;}}
 </style>
 </head>
@@ -405,7 +401,7 @@ canvas.sig.touched + .sig-placeholder{display:none;}
   <div class="succ-ring"><i class="ti ti-circle-check"></i></div>
   <div class="succ-badge"><i class="ti ti-check"></i> <span id="succBadgeTxt">Apto · Registro completado</span></div>
   <h2 id="succTitle">¡Listo, gracias!</h2>
-  <p class="succ-msg">Su declaración de fatiga y somnolencia fue enviada correctamente al sistema SSO de Sierra Antapite. Queda registrada en Google Sheets.</p>
+  <p class="succ-msg" id="succMsg">Su declaración de fatiga y somnolencia fue enviada correctamente al sistema SSO de Sierra Antapite. Queda registrada en Google Sheets.</p>
   <div class="succ-info-grid">
     <div class="succ-info-chip"><i class="ti ti-calendar-check"></i><span>Fecha</span><strong id="succFecha">—</strong></div>
     <div class="succ-info-chip"><i class="ti ti-clock"></i><span>Turno</span><strong id="succTurno">—</strong></div>
@@ -470,26 +466,14 @@ canvas.sig.touched + .sig-placeholder{display:none;}
     <div class="dni-wrap">
       <div class="dni-title">
         <span><i class="ti ti-id-badge"></i>&nbsp; Identificación</span>
-        <span class="dni-mini"><i class="ti ti-shield-lock"></i>&nbsp; Validación + manual</span>
+        <span class="dni-mini"><i class="ti ti-pencil"></i>&nbsp; Ingreso manual</span>
       </div>
       <div class="field" style="margin-bottom:0">
         <label>DNI del Conductor <span class="req">*</span></label>
-        <div class="dni-row">
-          <div class="field" style="margin-bottom:0">
-            <input type="text" id="dni" placeholder="Ingresa 8 dígitos" maxlength="8" inputmode="numeric"
-              oninput="this.value=this.value.replace(/\D/g,'');if(this.value.length===8)buscarDNI()">
-          </div>
-          <div class="dni-actions">
-            <button class="btn btn-gd" id="dnibtn" onclick="buscarDNI()" style="flex-shrink:0"><i class="ti ti-search"></i> Buscar</button>
-            <button type="button" class="btn btn-manual" id="manualbtn" onclick="activarManual()"><i class="ti ti-pencil"></i> Manual</button>
-          </div>
-        </div>
+        <input type="text" id="dni" placeholder="Ingrese 8 dígitos" maxlength="8" inputmode="numeric"
+          oninput="this.value=this.value.replace(/\D/g,'');formatearDNI(this)">
       </div>
       <div class="dni-st" id="dnist"></div>
-      <div class="dni-result" id="dniResult">
-        <div class="dni-result-av"><i class="ti ti-user"></i></div>
-        <div class="dni-result-info"><strong id="dniNombre">—</strong><span id="dniDni">DNI: —</span></div>
-      </div>
       <div class="rest-alert" id="restAlert">
         <div class="rest-alert-ic"><i class="ti ti-clock-pause"></i></div>
         <div class="rest-alert-txt">
@@ -503,8 +487,8 @@ canvas.sig.touched + .sig-placeholder{display:none;}
     <div class="g2">
       <div class="field">
         <label>Apellidos y Nombres <span class="req">*</span></label>
-        <input type="text" id="conductor" placeholder="Autocompleta RENIEC o escriba el nombre completo">
-        <div class="field-help">Si el DNI no se encuentra, complételo manualmente.</div>
+        <input type="text" id="conductor" placeholder="Escriba APELLIDOS Y NOMBRES completos" autocomplete="off">
+        <div class="field-help">Escriba el nombre completo tal como figura en su DNI.</div>
       </div>
       <div class="field">
         <label>N° de Licencia <span class="req">*</span></label>
@@ -728,7 +712,7 @@ canvas.sig.touched + .sig-placeholder{display:none;}
   <button type="button" class="sos-tab" onclick="toggleSOS()" aria-expanded="false" aria-controls="sosPanel"><i class="ti ti-headset"></i><span>Soporte</span></button>
 </aside>
 
-<!-- HOJA: RESULTADO + PROTOCOLO ANTI-FATIGA (solo APTO / CON OBSERVACIÓN) -->
+<!-- HOJA: RESULTADO + PROTOCOLO ANTI-FATIGA -->
 <div class="sms-bg" id="smsFatiga" style="display:none" role="alertdialog" aria-modal="true" aria-labelledby="smsTit">
   <div class="sms-box">
     <div class="grab"></div>
@@ -737,6 +721,7 @@ canvas.sig.touched + .sig-placeholder{display:none;}
       <div><strong>SSO · Sierra Antapite</strong><span>Mensaje de seguridad · ahora</span></div>
     </div>
     <div class="sms-bubble">
+      <div class="sms-sync" id="smsSync"></div>
       <div class="sms-result" id="smsResult"></div>
       <h4 id="smsTit">⚠️ Protocolo Anti-Fatiga al Conducir</h4>
       <p>¿Sientes cansancio o somnolencia mientras conduces? Aplica de inmediato:</p>
@@ -766,6 +751,9 @@ canvas.sig.touched + .sig-placeholder{display:none;}
   </div>
 </div>
 
+<!-- INDICADOR: SIN INTERNET / REGISTROS PENDIENTES -->
+<div class="pend" id="pend" onclick="vaciarCola()" title="Toque para reintentar el envío"><i class="ti ti-cloud-upload"></i><span id="pendTxt"></span></div>
+
 <!-- PWA BANNER -->
 <div class="pwa-banner hidden" id="pwaBanner">
   <div class="pwa-banner-ic"><i class="ti ti-device-mobile"></i></div>
@@ -778,15 +766,139 @@ canvas.sig.touched + .sig-placeholder{display:none;}
 
 <script>
 // ═══════════════════════════════════════════════════════════════
-//  URL DE TU APPS SCRIPT (sin cambios)
+//  URL DE TU APPS SCRIPT (sin cambios · el script NO se toca)
 // ═══════════════════════════════════════════════════════════════
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx9iPvFKwNdO87vFMBl6bqOXyxTbtxOlVnKj2ZxLMf9GMNjI4mwWqYDa4es3y8Ur5S2ew/exec";
 
 let pdfData = {};          // datos del registro final (PDF y resultado)
-let pendiente = null;      // 1.er intento NO APTO, aún sin enviar (1 sola fila)
+let pendiente = null;      // 1.er intento NO APTO, aún sin enviar
 let intento = 1;           // 1 = primer intento, 2 = segunda oportunidad
 let formVisible = true;
 let enviando = false;
+
+// ═══════════════════════════════════════════════════════════════
+//  HORA REAL DEL REGISTRO
+//  "fecha_registro" se fija AL FIRMAR, con el MISMO formato original
+//  (toLocaleString 'es-PE'). Aunque suba horas o días después,
+//  Google Sheets recibe la hora real del llenado.
+// ═══════════════════════════════════════════════════════════════
+function fmtFecha(ts){ return new Date(ts).toLocaleString('es-PE'); }
+const tsMap = new WeakMap();   // registro → momento exacto en que se firmó (solo interno, no se envía)
+
+// ═══════════════════════════════════════════════════════════════
+//  COLA LOCAL ORDENADA · FUNCIONA CON O SIN INTERNET
+//  1) Todo registro se guarda PRIMERO en el celular.
+//  2) Con internet sube enseguida a Google Sheets (nube).
+//  3) Sin internet queda guardado y sube solo al volver la señal,
+//     del más antiguo al más nuevo.
+//  4) Un registro sale de la cola solo después de enviarse.
+//  El JSON enviado es EXACTAMENTE el original: nada se agrega ni cambia.
+// ═══════════════════════════════════════════════════════════════
+const COLA_KEY = 'cola_checklist_v2';
+const LOCK_KEY = 'cola_checklist_lock';
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+function leerCola(){ try{ return JSON.parse(localStorage.getItem(COLA_KEY) || '[]'); }catch(e){ return []; } }
+function guardarCola(c){ try{ localStorage.setItem(COLA_KEY, JSON.stringify(c)); return true; }catch(e){ return false; } }
+function encolar(d){
+  const ts = tsMap.get(d) || Date.now();
+  const item = { id: ts.toString(36) + Math.random().toString(36).slice(2,8), ts, d };
+  const c = leerCola(); c.push(item);
+  if (!guardarCola(c)) throw new Error('El celular no tiene espacio para guardar el registro. Libere espacio e intente de nuevo.');
+  return item.id;
+}
+
+// Envío idéntico al original (mismo método, mismo JSON).
+async function enviarUno(d){
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), 45000);
+  try{
+    await fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify(d), signal: ctrl.signal });
+    return true;
+  }catch(e){ return false; }
+  finally{ clearTimeout(t); }
+}
+
+// Candado entre pestañas (evita que dos pestañas suban lo mismo)
+function tomarCandado(){
+  try{
+    const l = parseInt(localStorage.getItem(LOCK_KEY) || '0');
+    if (Date.now() - l < 60000) return false;
+    localStorage.setItem(LOCK_KEY, Date.now().toString());
+  }catch(e){}
+  return true;
+}
+function soltarCandado(){ try{ localStorage.removeItem(LOCK_KEY); }catch(e){} }
+
+// Sube en orden cronológico. Si uno falla, se detiene (no se salta el orden).
+let vaciando = false;
+async function vaciarCola(){
+  if (vaciando) return;
+  if (!leerCola().length){ actualizarPendientes(); return; }
+  if (!navigator.onLine){ actualizarPendientes(); return; }
+  if (!tomarCandado()) return;
+  vaciando = true;
+  try{
+    while (true){
+      const c = leerCola().sort((a, b) => a.ts - b.ts);
+      if (!c.length) break;
+      const it = c[0];
+      try{ localStorage.setItem(LOCK_KEY, Date.now().toString()); }catch(e){}
+      if (!(await enviarUno(it.d))) break;
+      guardarCola(leerCola().filter(x => x.id !== it.id));
+      actualizarPendientes();
+      await sleep(400);
+    }
+  } finally { vaciando = false; soltarCandado(); actualizarPendientes(); }
+}
+
+// Guarda primero, intenta subir después. Devuelve 'enviado' o 'pendiente'
+async function registrarSeguro(d){
+  const id = encolar(d);
+  actualizarPendientes();
+  let espera = 0;
+  while (vaciando && espera < 60){ await sleep(300); espera++; }
+  await vaciarCola();
+  return leerCola().some(x => x.id === id) ? 'pendiente' : 'enviado';
+}
+
+window.addEventListener('online', () => { actualizarPendientes(); vaciarCola(); });
+window.addEventListener('offline', actualizarPendientes);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) vaciarCola(); });
+setInterval(vaciarCola, 30000);
+
+// Pide al navegador que NO borre los datos guardados por falta de espacio
+try{ if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); }catch(e){}
+
+// ── Indicador visible ──
+function actualizarPendientes(){
+  const p = document.getElementById('pend'); if (!p) return;
+  const c = leerCola(), n = c.length, off = !navigator.onLine;
+  p.classList.toggle('show', n > 0 || off);
+  p.classList.toggle('off', off);
+  let txt;
+  if (n > 0){
+    const viejo = Math.min(...c.map(x => x.ts));
+    txt = n + ' registro(s) pendiente(s) de subir · el más antiguo: ' + fmtFecha(viejo) + (off ? ' · sin internet' : '');
+  } else txt = 'Sin internet · puede seguir trabajando';
+  document.getElementById('pendTxt').textContent = txt;
+}
+
+// ── Mensaje honesto al terminar ──
+function mensajeEstado(estado){
+  const pend = estado === 'pendiente';
+  const m = document.getElementById('succMsg');
+  if (m) m.textContent = pend
+    ? 'Su registro quedó GUARDADO en este celular con su fecha y hora reales. Se subirá solo a Google Sheets cuando haya internet. No borre los datos del navegador.'
+    : 'Su declaración de fatiga y somnolencia fue enviada correctamente al sistema SSO de Sierra Antapite. Queda registrada en Google Sheets.';
+  const s = document.getElementById('smsSync');
+  if (s){
+    s.className = 'sms-sync show ' + (pend ? 'wait' : 'ok');
+    s.innerHTML = pend
+      ? '<i class="ti ti-cloud-off"></i><div><b>Sin internet: registro guardado en su celular.</b> Se subirá solo, con su hora real, cuando haya conexión.</div>'
+      : '<i class="ti ti-cloud-check"></i><div><b>Registro enviado a la nube.</b> Ya está en Google Sheets.</div>';
+  }
+}
 
 // ── FECHA LOCAL (hora del celular, no UTC) ────────────────────
 function hoyLocal(){
@@ -817,9 +929,8 @@ document.getElementById('dni').addEventListener('input', function(){
 
 // ═══════════════════════════════════════════════════════════════
 //  RELOJ GLOBAL · MÁXIMO 3:00 MIN PARA TODO (incluye el reto)
-//  Cambia TIEMPO_TOTAL si algún día necesitas otro límite (en segundos).
 // ═══════════════════════════════════════════════════════════════
-const TIEMPO_TOTAL = 180;   // 3 min 0 s
+const TIEMPO_TOTAL = 180;
 const island = document.getElementById('island');
 const isRing = document.getElementById('isRing');
 const isTime = document.getElementById('isTime');
@@ -867,25 +978,25 @@ function tiempoAgotado(){
     location.reload();
     return;
   }
-  // Segunda oportunidad agotada → se registra UNA fila con el resultado definitivo (NO APTO)
+  // Segunda oportunidad agotada → se registra UNA fila (NO APTO). Conserva la hora del 1.er intento.
   formVisible = false;
   ocultarFormulario();
   if (pendiente){
     const d = { ...pendiente, observaciones: '[2.º INTENTO: TIEMPO AGOTADO · 1.º: NO APTO] ' + (pendiente.observaciones || '') };
+    tsMap.set(d, tsMap.get(pendiente) || Date.now());
     pdfData = d;
-    postDatos(d);
+    postDatos(d).then(mensajeEstado);
   }
   mostrarNoApto({ criticas:[], obs:[], timeout:true });
 }
 if (sessionStorage.getItem('tout')){
   sessionStorage.removeItem('tout');
   setTimeout(() => mostrarModal('⏱️','Tiempo agotado',
-    'El check list debe completarse en 2 minutos y medio. El formulario se reinició y las preguntas cambiaron de orden.'), 500);
+    'El check list debe completarse en 3 minutos. El formulario se reinició y las preguntas cambiaron de orden.'), 500);
 }
 
 // ═══════════════════════════════════════════════════════════════
 //  RETO DE ATENCIÓN (mini juego · ~20 s)
-//  Verdes = tocar rápido · Rojas = NO tocar
 // ═══════════════════════════════════════════════════════════════
 const G = { orden:[], i:0, ok:0, tiempos:[], done:false, resuelto:false, t0:0, tDelay:null, tLimit:null, tCount:null, resumen:'' };
 const gArea = document.getElementById('gArea');
@@ -896,9 +1007,7 @@ const G_RONDAS = [1,1,1,1,0,0];   // 4 verdes + 2 rojas, en orden aleatorio
 
 function juegoStop(){ clearTimeout(G.tDelay); clearTimeout(G.tLimit); clearTimeout(G.tCount); }
 function limpiarBlancos(){ gArea.querySelectorAll('.gt').forEach(b => b.remove()); }
-function pintarDots(){
-  gDots.innerHTML = G_RONDAS.map(() => '<span></span>').join('');
-}
+function pintarDots(){ gDots.innerHTML = G_RONDAS.map(() => '<span></span>').join(''); }
 function juegoReset(){
   juegoStop(); limpiarBlancos();
   G.done = false; G.i = 0; G.ok = 0; G.tiempos = []; G.resumen = '';
@@ -958,7 +1067,7 @@ function mostrarBlanco(verde){
   });
   gArea.appendChild(b);
   G.t0 = Date.now();
-  G.tLimit = setTimeout(() => cerrar(!verde), verde ? 1500 : 1100);  // verde sin tocar = falla; roja ignorada = acierto
+  G.tLimit = setTimeout(() => cerrar(!verde), verde ? 1500 : 1100);
 }
 function juegoFin(){
   G.done = true;
@@ -990,10 +1099,8 @@ const PQ = [
 ];
 const pDiv = document.getElementById('preguntas');
 
-// Respuesta que representa RIESGO / ALERTA en cada pregunta
 const RIESGO   = {1:'No', 2:'No', 3:'Sí', 4:'Sí', 5:'Sí', 6:'No', 7:'No'};
-// Solo estas preguntas BLOQUEAN la conducción (NO APTO).
-// P3 (medicamento con somnolencia) y P7 (capacitación) = ALERTA: puede conducir con observación.
+// Solo estas preguntas BLOQUEAN la conducción (NO APTO). P3 y P7 = ALERTA (puede conducir con observación).
 const CRITICAS = [1,2,4,5,6];
 const SOLO_ALERTA = [3,7];
 
@@ -1022,7 +1129,6 @@ function barajar(arr){
 function renderPreguntas(){
   ordenPreguntas = barajar(PQ.map((_, i) => i + 1));
   pDiv.innerHTML = ordenPreguntas.map((n, pos) => {
-    // Color del botón: verde = respuesta segura · ámbar = alerta (puede conducir) · rojo = bloquea
     const tipoRiesgo = SOLO_ALERTA.includes(n) ? 'warnopt' : 'risk';
     const cSi = RIESGO[n] === 'Sí' ? 'qo ' + tipoRiesgo : 'qo safe';
     const cNo = RIESGO[n] === 'No' ? 'qo ' + tipoRiesgo : 'qo safe';
@@ -1058,7 +1164,6 @@ function actualizarPreguntasUX(){
 }
 document.addEventListener('change', e => {
   if (e.target && e.target.matches('input[type="radio"]')) actualizarPreguntasUX();
-  // Alerta inmediata: medicamento con somnolencia (puede conducir, pero con alerta)
   if (e.target && e.target.name === 'q3' && e.target.value === 'Sí')
     mostrarModal('💊','Alerta: medicamento con somnolencia',
       'Puede conducir, pero con ALERTA.\n\nConduzca con máxima precaución, haga pausas frecuentes e informe a su supervisor.');
@@ -1117,25 +1222,23 @@ function lanzarConfetti(){
 }
 
 // ═══════════════════════════════════════════════════════════════
-//  ENVÍO A GOOGLE SHEETS · UNA SOLA FILA POR CONDUCTOR Y TURNO
+//  ENVÍO A GOOGLE SHEETS (siempre vía cola local)
 // ═══════════════════════════════════════════════════════════════
-// Envío "silencioso" (para NO APTO final): registra y bloquea 10 h
 async function postDatos(d){
   pendiente = null;
   guardarRegistroLocal(d.dni, d.guardia);
-  try{ await fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify(d) }); }catch(e){}
+  try{ return await registrarSeguro(d); }catch(e){ return 'pendiente'; }
 }
-// Si el conductor cierra la página con un NO APTO sin decidir, se envía ese resultado
+// Si el conductor cierra la página con un NO APTO sin decidir, queda guardado en la cola
 window.addEventListener('pagehide', () => {
   if (!pendiente) return;
-  try{
-    navigator.sendBeacon(SCRIPT_URL, JSON.stringify(pendiente));
-    guardarRegistroLocal(pendiente.dni, pendiente.guardia);
-    pendiente = null;
-  }catch(e){}
+  try{ encolar(pendiente); }catch(e){}
+  guardarRegistroLocal(pendiente.dni, pendiente.guardia);
+  pendiente = null;
 });
 
 function construirData(){
+  const ahora = Date.now();   // ← momento exacto de la firma
   const canvas = document.getElementById('cv-conductor');
   const tmp = document.createElement('canvas');
   tmp.width = canvas.width; tmp.height = canvas.height;
@@ -1145,16 +1248,15 @@ function construirData(){
   tCtx.drawImage(canvas, 0, 0);
   const firmaBase64 = tmp.toDataURL('image/png');
 
-  // Misma estructura de campos que espera tu Code.gs.
-  // El resultado del reto y el aviso de 2.º intento viajan dentro de "observaciones".
   const partes = [];
   if (intento === 2) partes.push('[2.º INTENTO · 1.º: NO APTO]');
   const obsTxt = document.getElementById('observaciones').value.trim();
   if (obsTxt) partes.push(obsTxt);
   if (G.resumen) partes.push('[' + G.resumen + ']');
 
-  return {
-    fecha_registro: new Date().toLocaleString('es-PE'),
+  // MISMOS campos, MISMO orden y MISMO formato que el original (tu Code.gs no cambia).
+  const data = {
+    fecha_registro: fmtFecha(ahora),
     dni:            document.getElementById('dni').value.trim(),
     conductor:      document.getElementById('conductor').value.trim(),
     licencia:       document.getElementById('licencia').value.trim().toUpperCase(),
@@ -1169,6 +1271,8 @@ function construirData(){
     observaciones:  partes.join(' '),
     firma_conductor: firmaBase64
   };
+  tsMap.set(data, ahora);
+  return data;
 }
 function getR(name) {
   const el = document.querySelector(`input[name="${name}"]:checked`);
@@ -1185,7 +1289,7 @@ async function enviar() {
   pdfData = { ...data };
   const r = evaluarAptitud(n => data['q' + n]);
 
-  // 1.er intento NO APTO → NO se envía. Se guarda en memoria y se ofrece la 2.ª opción.
+  // 1.er intento NO APTO → NO se envía todavía. Se ofrece la 2.ª opción.
   if (intento === 1 && r.estado === 'NO_APTO'){
     pendiente = data;
     formVisible = false;
@@ -1195,7 +1299,6 @@ async function enviar() {
     return;
   }
 
-  // Resultado final (APTO, CON OBSERVACIÓN, o NO APTO del 2.º intento) → una sola fila
   const btn  = document.getElementById('btnEnviar');
   const sp   = document.getElementById('spin');
   const btxt = document.getElementById('btxt');
@@ -1209,15 +1312,15 @@ async function enviar() {
   detenerReloj();
 
   try {
-    if (!navigator.onLine) throw new Error('Sin conexión a internet. Intente nuevamente.');
-    await fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify(data) });
+    const estado = await registrarSeguro(data);   // guarda primero, sube después
     enviando = false;
     pendiente = null;
     mostrarResultado();
+    mensajeEstado(estado);
   } catch (err) {
     enviando = false;
     if (estabaCorriendo) iniciarReloj(Math.max(resto, 15));
-    document.getElementById('errdet').textContent = err.message || 'No se pudo conectar con el servidor. Verifique internet y vuelva a intentar.';
+    document.getElementById('errdet').textContent = err.message || 'No se pudo guardar el registro en el celular.';
     document.getElementById('bnrerr').classList.add('show');
     document.getElementById('bnrerr').scrollIntoView({ behavior:'smooth', block:'nearest' });
   } finally {
@@ -1279,12 +1382,16 @@ function mostrarNoApto(r){
   document.getElementById('naScreen').classList.add('show');
   try{ if (navigator.vibrate) navigator.vibrate([250,120,250,120,500]); }catch(e){}
 }
-// El conductor decide NO usar la 2.ª opción → se registra el NO APTO del 1.er intento
-function terminarNoApto(){
+function textoFinalNoApto(estado){
+  return estado === 'pendiente'
+    ? 'Resultado guardado en el celular (se subirá cuando haya internet). No puede conducir. Comuníquese con su supervisor o con el Centro de Control.'
+    : 'Resultado registrado en la nube. No puede conducir. Comuníquese con su supervisor o con el Centro de Control.';
+}
+async function terminarNoApto(){
   if (!pendiente) return;
-  postDatos(pendiente);
+  const estado = await postDatos(pendiente);
   document.getElementById('naSegunda').style.display = 'none';
-  document.getElementById('naFinalTxt').textContent = 'Resultado registrado. No puede conducir. Comuníquese con su supervisor o con el Centro de Control.';
+  document.getElementById('naFinalTxt').textContent = textoFinalNoApto(estado);
   document.getElementById('naFinal').style.display = 'block';
 }
 
@@ -1339,6 +1446,13 @@ function actualizarStepper() {
 }
 
 // ── FORMATEO PERÚ ─────────────────────────────────────────────
+function formatearDNI(el){
+  const st = document.getElementById('dnist');
+  const ok = el.value.length === 8;
+  el.classList.toggle('input-ok', ok);
+  st.textContent = el.value.length === 0 ? '' : (ok ? '✓ DNI completo.' : 'Faltan ' + (8 - el.value.length) + ' dígito(s).');
+  st.className = 'dni-st ' + (ok ? 'dok' : '');
+}
 function formatearLicencia(el){
   let v = (el.value || '').toUpperCase().replace(/[^A-Z0-9]/g,'');
   if (v.length > 0) v = v[0].replace(/[^A-Z]/g,'') + v.slice(1).replace(/\D/g,'');
@@ -1357,6 +1471,12 @@ function placaValida(v){ return (v||'').trim().replace(/[\s\-\.\/ ]/g,'').length
 function validar(s) {
   document.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
   if (s === 1) {
+    const dniEl = document.getElementById('dni');
+    if (!/^\d{8}$/.test(dniEl.value.trim())) {
+      dniEl.classList.add('invalid');
+      mostrarModal('🪪','DNI no válido','El DNI debe tener exactamente 8 dígitos.');
+      return false;
+    }
     const req = [
       { id:'conductor', msg:'Ingresa el nombre del conductor.' },
       { id:'licencia',  msg:'Ingresa el N° de licencia.' },
@@ -1419,62 +1539,6 @@ function cerrarModal(e) {
   if (!e || e.target === document.getElementById('modal'))
     document.getElementById('modal').style.display = 'none';
 }
-
-// ── DNI · RENIEC + MODO MANUAL ────────────────────────────────
-function activarManual(){
-  const fld = document.getElementById('conductor');
-  const st  = document.getElementById('dnist');
-  const res = document.getElementById('dniResult');
-  if (res) res.classList.remove('show');
-  st.textContent = 'Modo manual activado. Escriba apellidos y nombres completos y continúe.';
-  st.className = 'dni-st dok';
-  fld.placeholder = 'Escriba APELLIDOS Y NOMBRES completos';
-  fld.focus();
-}
-async function buscarDNI() {
-  const dni = document.getElementById('dni').value.trim();
-  const st  = document.getElementById('dnist');
-  const fld = document.getElementById('conductor');
-  const btn = document.getElementById('dnibtn');
-  const res = document.getElementById('dniResult');
-  if (dni.length !== 8) {
-    st.textContent = '⚠ El DNI debe tener exactamente 8 dígitos.';
-    st.className = 'dni-st derr';
-    res.classList.remove('show');
-    return;
-  }
-  st.innerHTML = '<i class="ti ti-loader-2" style="animation:rot .7s linear infinite;display:inline-block;vertical-align:-3px;margin-right:5px"></i>Consultando RENIEC...';
-  st.className = 'dni-st';
-  btn.disabled = true;
-  res.classList.remove('show');
-  try {
-    const controller = new AbortController();
-    const t = setTimeout(() => controller.abort(), 6500);
-    const r = await fetch('https://api.apis.net.pe/v2/reniec/dni?numero=' + encodeURIComponent(dni), {
-      headers:{ 'Authorization':'Bearer apis-token-13417.n4O68lGiOx3l0kFRvFhO9LHFtFTNjHsz' },
-      signal: controller.signal
-    });
-    clearTimeout(t);
-    if (!r.ok) throw new Error('no encontrado');
-    const d = await r.json();
-    if (!d || !d.nombres) throw new Error('sin datos');
-    const nombre = [d.nombres, d.apellidoPaterno, d.apellidoMaterno].filter(Boolean).join(' ').replace(/\s+/g,' ').trim();
-    fld.value = nombre;
-    fld.classList.add('input-ok');
-    st.textContent = '✓ Datos encontrados. Verifique el nombre antes de continuar.';
-    st.className = 'dni-st dok';
-    document.getElementById('dniNombre').textContent = nombre;
-    document.getElementById('dniDni').textContent    = 'DNI: ' + dni;
-    res.classList.add('show');
-  } catch (err) {
-    st.textContent = 'RENIEC no respondió o no encontró el DNI. Use el modo manual y continúe.';
-    st.className = 'dni-st derr';
-    fld.placeholder = 'Escriba APELLIDOS Y NOMBRES completos';
-    res.classList.remove('show');
-    setTimeout(() => fld.focus(), 120);
-  } finally { btn.disabled = false; }
-}
-document.getElementById('dni').addEventListener('keydown', e => { if (e.key === 'Enter') buscarDNI(); });
 
 // ── CANVAS FIRMA ──────────────────────────────────────────────
 function initCanvas(id) {
@@ -1747,7 +1811,13 @@ if ('serviceWorker' in navigator) {
         });
       })
       .catch(err => console.log('SW:', err));
-    navigator.serviceWorker.addEventListener('controllerchange', () => window.location.reload());
+    // Recarga SOLO si el conductor aún no empezó (no se pierde lo que está llenando)
+    let recargado = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (recargado || relojUsado || enviando || !formVisible) return;
+      recargado = true;
+      window.location.reload();
+    });
   });
 }
 let deferredPrompt = null;
@@ -1769,31 +1839,37 @@ function cerrarBanner() {
 }
 window.addEventListener('appinstalled', () => { banner.classList.add('hidden'); deferredPrompt = null; });
 
-// Ícono PWA dinámico
+// Ícono PWA dinámico (apple-touch-icon)
 (function generarIcono(){
-  const c = document.createElement('canvas');
-  c.width = 192; c.height = 192;
-  const ctx = c.getContext('2d');
-  const g = ctx.createLinearGradient(0,0,192,192);
-  g.addColorStop(0,'#020d1a'); g.addColorStop(.5,'#041830'); g.addColorStop(1,'#063a70');
-  ctx.fillStyle = g; ctx.roundRect(0,0,192,192,32); ctx.fill();
-  ctx.beginPath(); ctx.arc(96,72,38,0,Math.PI*2);
-  const gC = ctx.createLinearGradient(58,34,134,110);
-  gC.addColorStop(0,'#ffbe00'); gC.addColorStop(1,'#ff8c00');
-  ctx.fillStyle = gC; ctx.fill();
-  ctx.strokeStyle='#fff'; ctx.lineWidth=8; ctx.lineCap='round'; ctx.lineJoin='round';
-  ctx.beginPath(); ctx.moveTo(76,72); ctx.lineTo(90,86); ctx.lineTo(116,60); ctx.stroke();
-  ctx.fillStyle='#fff'; ctx.font='bold 17px Arial,sans-serif';
-  ctx.textAlign='center'; ctx.fillText('CheckList', 96, 130);
-  ctx.font='12px Arial,sans-serif'; ctx.fillStyle='rgba(255,255,255,.65)';
-  ctx.fillText('Sierra Antapite', 96, 150);
-  const d = c.toDataURL();
-  ['apple-touch-icon','icon'].forEach((rel,i) => {
-    const l = document.querySelector(`link[rel="${rel}"]`) || document.createElement('link');
-    l.rel = rel; if(i===1){l.type='image/png';} l.href = d;
-    document.head.appendChild(l);
-  });
+  try{
+    const c = document.createElement('canvas');
+    c.width = 192; c.height = 192;
+    const ctx = c.getContext('2d');
+    const g = ctx.createLinearGradient(0,0,192,192);
+    g.addColorStop(0,'#020d1a'); g.addColorStop(.5,'#041830'); g.addColorStop(1,'#063a70');
+    ctx.fillStyle = g; ctx.fillRect(0,0,192,192);
+    ctx.beginPath(); ctx.arc(96,72,38,0,Math.PI*2);
+    const gC = ctx.createLinearGradient(58,34,134,110);
+    gC.addColorStop(0,'#ffbe00'); gC.addColorStop(1,'#ff8c00');
+    ctx.fillStyle = gC; ctx.fill();
+    ctx.strokeStyle='#fff'; ctx.lineWidth=8; ctx.lineCap='round'; ctx.lineJoin='round';
+    ctx.beginPath(); ctx.moveTo(76,72); ctx.lineTo(90,86); ctx.lineTo(116,60); ctx.stroke();
+    ctx.fillStyle='#fff'; ctx.font='bold 17px Arial,sans-serif';
+    ctx.textAlign='center'; ctx.fillText('CheckList', 96, 130);
+    ctx.font='12px Arial,sans-serif'; ctx.fillStyle='rgba(255,255,255,.65)';
+    ctx.fillText('Sierra Antapite', 96, 150);
+    const d = c.toDataURL();
+    ['apple-touch-icon','icon'].forEach((rel,i) => {
+      const l = document.querySelector(`link[rel="${rel}"]`) || document.createElement('link');
+      l.rel = rel; if(i===1){l.type='image/png';} l.href = d;
+      document.head.appendChild(l);
+    });
+  }catch(e){}
 })();
+
+// ── ARRANQUE ──────────────────────────────────────────────────
+actualizarPendientes();
+vaciarCola();
 </script>
 
 </body>

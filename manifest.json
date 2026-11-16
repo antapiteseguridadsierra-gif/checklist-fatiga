@@ -1,0 +1,19 @@
+{
+  "name": "Check List de Fatiga y Somnolencia",
+  "short_name": "CheckList SSO",
+  "description": "Declaración de fatiga y somnolencia · Sierra Antapite",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#060a22",
+  "theme_color": "#060a22",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
